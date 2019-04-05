@@ -33,55 +33,6 @@
 %\LoadClass[a4paper, 12pt, twoside, openright]{report}
 
 % ------------------------------
-% Fejlécek és láblécek
-\RequirePackage{fancyhdr}
-\pagestyle{fancy}
-
-% Chapter és section információk stílusának felüldefiniálása
-\renewcommand{\chaptermark}[1]{\markboth{\thechapter.\ #1}{}}
-\renewcommand{\sectionmark}[1]{\markright{\thesection.\ #1}{}}
-% Fej- és lábléc vonalak beállítása
-\renewcommand{\headrulewidth}{1pt}
-\renewcommand{\footrulewidth}{0pt}
-
-% Fejléc törlése
-\fancyhead{}
-% Fejléc beállítása (egyoldalashoz)
-\fancyhead[C]{\slshape \leftmark}
-% Fejléc beállítása (kétoldalashoz)
-%\fancyhead[EC]{\slshape \leftmark}
-%\fancyhead[OC]{\slshape \rightmark}
-
-% Fejléc és lábléc távolsága a tartalomtól
-\topskip = 15pt		% default: 10pt
-\footskip = 40pt	% default: 30pt
-
-% Lábléc törlése
-\fancyfoot{}
-% Lábléc beállítása
-\fancyfoot[C]{\thepage}
-
-% A chapter page-k mindig visszaállnak plain style-ra, ezért azt is felül kell külön definiálni.
-\fancypagestyle{plain}{
-	% Fejléc vonal letiltása
-	\renewcommand{\headrulewidth}{0pt}
-	% Teljes fejléc és lábléc törlés
-	\fancyhf{}
-	% Lábléc beállítása
-    \fancyfoot[C]{\thepage}
-}
-
-% Üres oldalakon ne legyen fej- és lábléc
-% http://www.tex.ac.uk/cgi-bin/texfaq2html?label=reallyblank
-\let\origdoublepage\cleardoublepage
- \newcommand{\clearemptydoublepage}{
-   \clearpage
-   {\pagestyle{empty}\origdoublepage}
- }
-\let\cleardoublepage\clearemptydoublepage
-% ------------------------------
-
-% ------------------------------
 % Karakterkódolás, nyelv
 \RequirePackage[utf8]{inputenc}
 \RequirePackage[T1]{fontenc}
@@ -210,6 +161,55 @@
 % http://anthony.liekens.net/index.php/LaTeX/SubscriptAndSuperscriptInTextMode
 \newcommand{\superscript}[1]{\ensuremath{^{\textrm{\scriptsize{#1}}}}}
 \newcommand{\subscript}[1]{\ensuremath{_{\textrm{\scriptsize{#1}}}}}
+% ------------------------------
+
+% ------------------------------
+% Fejlécek és láblécek
+\RequirePackage{fancyhdr}
+\pagestyle{fancy}
+
+% Chapter és section információk stílusának felüldefiniálása
+\renewcommand{\chaptermark}[1]{\markboth{\thechapter.\ #1}{}}
+\renewcommand{\sectionmark}[1]{\markright{\thesection.\ #1}{}}
+% Fej- és lábléc vonalak beállítása
+\renewcommand{\headrulewidth}{1pt}
+\renewcommand{\footrulewidth}{0pt}
+
+% Fejléc törlése
+\fancyhead{}
+% Fejléc beállítása (egyoldalashoz)
+\fancyhead[C]{\slshape \leftmark}
+% Fejléc beállítása (kétoldalashoz)
+%\fancyhead[EC]{\slshape \leftmark}
+%\fancyhead[OC]{\slshape \rightmark}
+
+% Fejléc és lábléc távolsága a tartalomtól
+\topskip = 15pt		% default: 10pt
+\footskip = 40pt	% default: 30pt
+
+% Lábléc törlése
+\fancyfoot{}
+% Lábléc beállítása
+\fancyfoot[C]{\thepage}
+
+% A chapter page-k mindig visszaállnak plain style-ra, ezért azt is felül kell külön definiálni.
+\fancypagestyle{plain}{
+	% Fejléc vonal letiltása
+	\renewcommand{\headrulewidth}{0pt}
+	% Teljes fejléc és lábléc törlés
+	\fancyhf{}
+	% Lábléc beállítása
+    \fancyfoot[C]{\thepage}
+}
+
+% Üres oldalakon ne legyen fej- és lábléc
+% http://www.tex.ac.uk/cgi-bin/texfaq2html?label=reallyblank
+\let\origdoublepage\cleardoublepage
+ \newcommand{\clearemptydoublepage}{
+   \clearpage
+   {\pagestyle{empty}\origdoublepage}
+ }
+\let\cleardoublepage\clearemptydoublepage
 % ------------------------------
 
 % ------------------------------
