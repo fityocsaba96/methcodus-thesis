@@ -99,6 +99,20 @@
 		\section{Komponensek közti kommunikáció}
 		TODO (szerver, kliens és adatbázis összekötés, szekvenciadiagram egy összetettebb funkcióra)
 
+		\section{A tesztelő rendszer működése}
+			Az alkalmazás leglényegesebb része a tesztelő rendszer. A felhasználók által megoldandó programozási feladatok megoldása közben, illetve azok beküldésekor nyújt támpontot számukra azáltal, hogy kiértékeli a megoldásukat és egységes formájú jelentést készít annak állapotáról. Akár tesztvezérelt fejlesztéssel oldja meg a felhasználó a feladatot, akár nem, ez a rendszer felel a megoldás teszteléséért. A tesztelő rendszer a szerveroldalon található, HTTP kapcsolaton keresztül folyik a kommunikáció. Megkapjuk a teszteléshez szükséges adatokat, elvégezzük a teszteket, utána pedig válaszolunk a teszteredményekkel.
+			
+			Miután megérkeznek HTTP kérésen keresztül a megfelelő adatok, elindítjuk a tesztelést külön folyamatban parancssori programként, a tesztelendő megoldás programozási nyelve szerinti, azon a nyelven írt tesztelő program indításával. Java esetén a \texttt{java}, JavaScript esetén pedig a \texttt{node} parancsot használjuk erre, a teszteléshez szükséges adatokat pedig környezeti változókon keresztül, szövegesen kapja meg a tesztelő. Miután a tesztelő elvégezte feladatát, tudatnia kell az eredményeket az őt hívó szülőfolyamattal. Sikeres tesztelés esetén kiírja a standard kimenetre a teszteredményeket. Hiba esetén kilépési kódokat használunk:
+			\begin{itemize}
+				\setlength\itemsep{-0.5em}
+				\item[1:] a beküldött kódokban lévő szintaktikai hibát jelez
+				\item[2:] a beküldött kódokban lévő fordítási hibát jelez
+				\item[255:] egyéb, ismeretlen hiba
+			\end{itemize}
+			A tesztelő folyamat terminálásakor, a szülőfolyamatban kiolvassuk a standard kimenetet, illetve a kilépési kódot. Ezek alapján, illetve hiba esetén egy hibaüzenetet előállítva küldjük vissza a HTTP választ, ami alapján megjelenítjük a felhasználónak a megoldása állapotát. TODO (feluleten levo tesztelesi dolgokrol irni ide?)
+		
+			A tesztek futtatására két mód van. Az egyik módszer az egységteszt keretrendszer kódján alapuló tesztelés, másik pedig az egységes formátumon alapuló tesztelés. Mindkét módszer képes együttműködni Java és JavaScript nyelven írt kódokkal.
+
 		\section{Fejlesztőkörnyezet}
 		TODO (rendszerkövetelmények, beállítás, futtatás)
 		
@@ -140,7 +154,7 @@
 
 	\pagenumbering{gobble}
 	\addcontentsline{toc}{chapter}{Mellékletek}
-	
+
 	\section*{DVD tartalma}
 	TODO (tartalom, mappaszerkezet)
 
