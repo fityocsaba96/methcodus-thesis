@@ -266,6 +266,10 @@
 % Algoritmusok és kódblokkok írása
 \RequirePackage{algorithm}
 \RequirePackage{algorithmic}
+\RequirePackage{minted}
+\AtBeginEnvironment{minted}{%
+  \renewcommand{\fcolorbox}[4][]{#4}}
+\setminted{autogobble, tabsize=4}
 \RequirePackage{listingsutf8}
 \lstset{
 	basicstyle=\footnotesize\ttfamily,
