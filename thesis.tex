@@ -114,7 +114,11 @@
 			A tesztek futtatására két mód van. Az egyik módszer az egységteszt keretrendszer kódján alapuló tesztelés, másik pedig az egységes formátumon alapuló tesztelés. Mindkét módszer képes együttműködni Java és JavaScript nyelven írt kódokkal.
 
 			\subsection{Egységteszt keretrendszer kódján alapuló tesztelés}
-				Ez a tesztelési módszer egy, a feladat megoldására használt programozási nyelvvel együttműködő egységteszt keretrendszert használó tesztkód alapján történő tesztelésre használható. Szükséges hozzá a megoldás kódja, illetve az egységteszt keretrendszert felhasználó tesztkód. Ezt a módszert akkor használjuk, amikor a felhasználó maga írja a tesztkódot is, azaz a tesztvezérelt fejlesztés, illetve a ping-pong módszer (tesztvezérelt fejlesztés és párprogramozás együttesen), mint szoftverfejlesztési módszer használatával történő megoldáskor. Célja, hogy a tesztkódban lévő, a megoldást tesztelő teszteseteket lefuttatva jelentést kapjunk azok teljesüléséről.
+				Ez a tesztelési módszer egy, a feladat megoldására használt programozási nyelvvel együttműködő egységteszt keretrendszert használó tesztkód alapján történő tesztelésre használható. Szükséges hozzá a megoldás kódja, illetve az egységteszt keretrendszert felhasználó tesztkód.
+				
+				Ezt a módszert akkor használjuk, amikor a felhasználó maga írja a tesztkódot is, azaz a tesztvezérelt fejlesztés, illetve a ping-pong módszer (tesztvezérelt fejlesztés és párprogramozás együttesen), mint szoftverfejlesztési módszerek használatával történő megoldáskor.
+				
+				Célja, hogy a tesztkódban lévő, a megoldást tesztelő teszteseteket lefuttatva jelentést kapjunk azok teljesüléséről.
 
 				\subsubsection{A tesztelés közös lépései}
 					\begin{enumerate}
@@ -137,15 +141,76 @@
 						\item A megoldás, illetve a tesztek fordításához és futtatásához a Java SE Development Kit 12-es verzióját használjuk, egységteszt keretrendszernek pedig a JUnit 5-ös verzióját. A tesztelésre beküldött megoldás és teszt forráskódoknak meg kell felelniük az ezek által támasztott követelményeknek.
 						\item Fontos szerepe van Java esetén, hogy a forrásfájlokat milyen néven mentjük el, ennek figyelmen kívül hagyása esetén a fordítási folyamat hibával térne vissza. Ha a forrásfájl osztálystruktúrájának legkülső szintjén van publikus osztály, interfész vagy felsorolási típus, akkor a fájl nevének meg kell egyeznie ennek a nevével. Egyéb esetben nincs megkötés a fájlnévvel kapcsolatban. Ezt a szabályt használjuk fel a fájlnév meghatározásakor. A forráskódban definiált osztálynevek kinyeréséhez a JavaParser Java forráskód elemzőt használjuk. A szintaktikai hibák detektálásához szintén a JavaParser-t használjuk.
 						\item Le kell fordítanunk a Java forrásfájlokat, hogy használni tudjuk őket a tesztek futtatásakor. Ehhez a Java Compiler API-t használjuk, ami a Java fordítót használja fel. A lefordított fájlokat a forrásfájlokban opcionálisan deklarálható package-információ szerinti konyvtárstruktúrába helyezzük, a forráskódok ideiglenes mappájába. Ebben a lépésben detektálni tudjuk a fordítási hibákat.
-						\item A JUnit-nak a tesztesetek lefuttatásához szüksége van az azokat tartalmazó osztályokra, mint objektumokra, és ehhez ezeknek az osztályoknak be kell töltve lenniük a tesztelő program használatára. Legtöbb Java program esetében már futtatáskor meg tudjuk adni az összes, a program által használandó osztályt. Itt nem ez a helyzet, mert a felhasználótól érkező megoldás és teszt csak a program futása alatt kerül használható formába, ezért ezeket futás alatt, dinamikusan kell betöltenünk. Ennek megoldására osztálybetöltőt használunk, amivel be tudjuk tölteni egy lefordított Java fájlokat tartalmazó mappából az osztályokat. Itt még nem vagyunk készen, ugyanis a betöltött osztályok közül meg kell keresnünk azokat, amelyek a felhasználó tesztkódjában lettek definiálva. Ehhez szükségünk van ezeknek az osztályoknak a teljes elérési neveire, ami nem más, mint a teszt forrásfájl osztálystruktúrájának legkülső szintjén lévő osztályok nevei, prefixálva az opcionális package névvel. Ezeknek az információknak a kinyeréséhez szintén a JavaParser-t használjuk. Az így meghatározott elérési nevek alapján már meg tudjuk kapni a hozzájuk tartozó tesztosztályokat az osztálybetöltőből, amit így már fel tud használni a JUnit a tesztek futtatására.
+						\item A JUnitnak a tesztesetek lefuttatásához szüksége van az azokat tartalmazó osztályokra, mint objektumokra, és ehhez ezeknek az osztályoknak be kell töltve lenniük a tesztelő program használatára. Legtöbb Java program esetében már futtatáskor meg tudjuk adni az összes, a program által használandó osztályt. Itt nem ez a helyzet, mert a felhasználótól érkező megoldás és teszt csak a program futása alatt kerül használható formába, ezért ezeket futás alatt, dinamikusan kell betöltenünk. Ennek megoldására osztálybetöltőt használunk, amivel be tudjuk tölteni egy lefordított Java fájlokat tartalmazó mappából az osztályokat. Itt még nem vagyunk készen, ugyanis a betöltött osztályok közül meg kell keresnünk azokat, amelyek a felhasználó tesztkódjában lettek definiálva. Ehhez szükségünk van ezeknek az osztályoknak a teljes elérési neveire, ami nem más, mint a teszt forrásfájl osztálystruktúrájának legkülső szintjén lévő osztályok nevei, prefixálva az opcionális package névvel. Ezeknek az információknak a kinyeréséhez szintén a JavaParser-t használjuk. Az így meghatározott elérési nevek alapján már meg tudjuk kapni a hozzájuk tartozó tesztosztályokat az osztálybetöltőből, amit így már fel tud használni a JUnit a tesztek futtatására.
 					\end{itemize}
 
 				\subsubsection{JavaScript tesztelés sajátosságai}
 					\begin{itemize}
 						\item A megoldás, illetve a tesztek futtatásához a Node.js 10-es verzióját használjuk, egységteszt keretrendszernek pedig a Jasmine 3-as verzióját. A tesztelésre beküldött megoldás és teszt forráskódoknak meg kell felelniük az ezek által támasztott követelményeknek.
 						\item Bár JavaScript esetén a forráskódokat bármilyen néven elmenthetjük, a konvenció szerinti néven mentjük el őket, a megoldást \texttt{index.js}, a tesztet pedig \texttt{index.spec.js} néven. Ez segíti a megoldó felhasználót, hiszen így a tesztkódban, a megoldás importálásakor nem kell tudnia, hogy honnan kell importálnia, elegendő a jelenlegi mappa elérési útját megadnia, ami \texttt{"."}.
-						\item Mivel Node.js 10-es verzióját használjuk a futtatáshoz, így azokat a JavaScript funkciókat, elemeket használhatja a felhasználó, amelyek ebbe be vannak építve. Ezt ki szeretnénk terjeszteni a legújabbakra, ennek érdekében Babel-t és Core.js-t használunk. A Babel feladata, hogy a felhasználó JavaScript forráskódját, amiben a legújabb JavaScript elemek is fel lehetnek használva, átalakítsa olyan JavaScript kóddá, ami működése alapján teljesen megegyezik, viszont az újabb nyelvi elemeket, amelyeket a JavaScript-et futtató környezet még nem támogat, helyettesíti más, megegyező működésű konstrukciókkal. A Core.js feladata pedig, hogy a felhasználó JavaScript kódjában lehetővé tegye olyan osztályok, függvények használatát, amelyek részei, vagy részei lesznek a JavaScript standard függvénytárának, de a futtató környezet még nem tartalmazza ezeket. Ezt úgy éri el, hogy a kódban helyettesíti a megfelelő osztály- és függvényhasználatokat azoknak a Core.js szerinti implementációjával. A felhasználónak a kódban nem kell tennie semmi különöset, a Babel és a Core.js olyan módon került beállításra, hogy a szükséges módosítások a felhasználó forráskódjában automatikusan megtörténnek azok betöltésekor.
-						\item A Jasmine-nak a tesztek futtatásához a teszteseteket tartalmazó fájl elérési útjára van szüksége, amely rendelkezésünkre áll. Az esetleges szintaktikai hibák már a tesztek futtatásakor derülnek ki.
+						\item Mivel Node.js 10-es verzióját használjuk a futtatáshoz, így azokat a JavaScript funkciókat, elemeket használhatja a felhasználó, amelyek ebbe be vannak építve. Ezt ki szeretnénk terjeszteni a legújabbakra, ennek érdekében Babel-t és Core.js-t használunk. A Babel feladata, hogy a felhasználó JavaScript forráskódját, amiben a legújabb JavaScript elemek is fel lehetnek használva, átalakítsa olyan JavaScript kóddá, ami működése alapján teljesen megegyezik, viszont az újabb nyelvi elemeket, amelyeket a JavaScriptet futtató környezet még nem támogat, helyettesíti más, megegyező működésű konstrukciókkal. A Core.js feladata pedig, hogy a felhasználó JavaScript kódjában lehetővé tegye olyan osztályok, függvények használatát, amelyek részei, vagy részei lesznek a JavaScript standard függvénytárának, de a futtató környezet még nem tartalmazza ezeket. Ezt úgy éri el, hogy a kódban helyettesíti a megfelelő osztály- és függvényhasználatokat azoknak a Core.js szerinti implementációjával. A felhasználónak a kódban nem kell tennie semmi különöset, a Babel és a Core.js olyan módon került beállításra, hogy a szükséges módosítások a felhasználó forráskódjában automatikusan megtörténnek azok betöltésekor.
+						\item A Jasminenak a tesztek futtatásához a teszteseteket tartalmazó fájl elérési útjára van szüksége, amely rendelkezésünkre áll. Az esetleges szintaktikai hibák már a tesztek futtatásakor derülnek ki.
+					\end{itemize}
+
+			\subsection{Egységes formátumon alapuló tesztelés}
+				Ez a tesztelési módszer programozási nyelv-független, egységes formátumú tesztesetek alapján történő tesztfuttatást tesz lehetővé. Ez azt jelenti, hogy ha van egy programozási feladatra egy-egy teljesen megegyező megoldásom két különböző programozási nyelven, illetve vannak ilyen, egységes formátumú teszteseteim ezekhez a megoldásokhoz, akkor bármely programozási nyelven írt megoldásra lefuttatva a teszteket, azonos eredményeket kapok. Ennek eléréséhez egy olyan, közös interfészre van szükség, amely minden támogatott programozási nyelven megvalósítható. Ennek értelmében a teszteket nem egy programozási nyelv kódjaként írjuk meg, hanem definiálunk egy sémát a JSON szabvány felhasználásával, amely sémában reprezentálni tudjuk a tesztjeinket. A tesztek futtatásakor ezt a JSON objektumot át kell alakítanunk a tesztelendő megoldás programozási nyelve szerinti egységteszt keretrendszer kódjává, amellyel már le tudjuk futtatni a teszteket. Ehhez a JSON struktúrában lévő adatoknak egyértelműen megfeleltethetőnek kell lenniük a cél egységteszt keretrendszerben használható konstrukciónak. Ehhez a módszerhez szükséges a megoldás kódja, illetve a egységes teszteket tartalmazó JSON struktúra.
+				
+				Ezt a módszert minden esetben használjuk, de más módon. Amikor a felhasználó csak a megoldás kódját írja, azaz normál mód, illetve párprogramozás, mint szoftverfejlesztési módszer használatakor, akkor úgy használjuk ezt a módszert, hogy a feladatot létrehozó felhasználó által a létrehozáskor megadott egységes formátumú teszteket küldjük be tesztelésre a megoldó felhasználó megoldási kódjával együtt, amikor a felhasználó tesztelést kér. Egyéb esetekben, vagyis a tesztvezérelt fejlesztés és a ping-pong módszer, mint szoftverfejlesztési módszerek használatakor bár a felhasználó maga írja a tesztkódot is, de a megoldás tényleges megfelelőségének ellenőrzése céljából lefutnak a létrehozáskor meghatározott egységes formátumú tesztek is.
+				
+				A módszer célja, hogy a megoldáskor egységes formában meg tudjuk jeleníteni, hogy milyen elvárásoknak kell megfelelni, az egységes teszteseteket lefuttatva jelentést kapjunk azok teljesüléséről, illetve, hogy a feladatot létrehozó felhasználónak csak egyszer kelljen leírnia a teszteseteket és az működjön minden programozási nyelvvel.
+
+				A JSON struktúra tartalmazza az egységes formátumú teszteseteket és a tesztelendő függvény meghívási kódját. Ez a kód nem más, mint ahogyan a megoldásfüggvényünket meghívnánk az adott programozási nyelven, de még paraméterek nélkül, és ezt a megoldó felhasználónak kell megadnia a tesztelendő függvény beazonosítása érdekében. A teszteseteknél minden egyes tesztesethez tartozik egy szöveges leírás, egy paraméterlista, egy összehasonlító művelet és az elvárt érték. Az összehasonlító művelet lehet egyenlőség- vagy nem-egyenlőség vizsgálat. A paraméterekhez és az elvárt értékhez tartozik egy típus és egy érték. Típus lehet egész szám, dupla pontosságú lebegőpontos szám, logikai érték, szöveges érték, egész számok tömbje, dupla pontosságú lebegőpontos számok tömbje, logikai értékek tömbje vagy szöveges értékek tömbje. Az értékeknek a típus által támasztott szabályoknak kell megfelelniük, a tömböknél az egyes elemek "|" karakterrel vannak elválasztva. Egy lehetséges minta felépítés:
+				\begin{minted}{json}
+					{
+						"functionCallCode": "calculateSomething",
+						"testCases": [
+							{
+								"description": "it should return the ...",
+								"parameters": [
+									{
+										"type": "integer",
+										"value": "2"
+									},
+									{
+										"type": "string array",
+										"value": "one|two|three|four"
+									},
+									...
+								],
+								"matcher": "not equals",
+								"expected": {
+									"type": "boolean",
+									"value": "true"
+								}
+							},
+							...
+						]
+					}
+				\end{minted}
+				TODO (a felületen történő dolgokról, a json validációról írni valahova)
+
+				\subsubsection{A tesztelés közös lépései}
+					\begin{enumerate}
+						\item Megkapjuk a megoldás kódját, illetve az egységes, JSON formátumú tesztadatokat.
+						\item Az egységes formátumú teszteseteket átalakítjuk a megoldáshoz használt programozási nyelv szerinti egységteszt keretrendszert felhasználó tesztkóddá:
+						\begin{enumerate}
+							\item Beillesztünk olyan kódokat, amelyek beimportálják a tesztkód számára szükséges függőségeket, így lehetővé teszik használatukat. Ez programozási nyelvenként változik.
+							\item Előállítjuk minden egységes tesztesetnek az egységteszt keretrendszerbeli megfelelőjét. Pontosan megfeleltetünk minden megadható összehasonlító műveletet, illetve literált az egységteszt keretrendszerben, illetve a programozási nyelvben használható megfelelőjével. A tömbliterálok megfeleltetésénél az egyes elemeinek meghatározásához azoknak a megfeleltetését használjuk fel. Szöveges literáloknál figyelünk arra, hogy a nyelv sajátosságainak megfelelően escapeljük a benne lévő karaktereket az előállított forráskódban, így bármilyen karakter használható értékként. Tömb literáloknál lehetőséget adunk arra, hogy az elválasztó karaktert is fel lehessen használni az értékekben azáltal, hogy az escapelt elválasztókat nem elválasztóknak, hanem annak megfelelő karaktereknek feleltetjük meg. Ezek használatával már meghatározhatóak a szöveges leírások, a paraméterlisták, az összehasonlító műveletek és az elvárt értékek, így felépíthetőek a tesztesetek kódjai.
+						\end{enumerate}
+						\item A így létrejövő teszt- és az eredeti megoldáskód felhasználásával ugyanaz a folyamat megy végbe, mint az egységteszt keretrendszer kódján alapuló tesztelés módszerénél.
+					\end{enumerate}
+
+				\subsubsection{Java tesztelés sajátosságai}
+					\begin{itemize}
+						\item Az átalakítás során a JUnitot felhasználó tesztkód kerül előállításra.
+						\item Importálásnál szükségünk van a JUnitból felhasználandó elemekre és Java osztályokra.
+						\item Az összehasonlító műveletek megfeleltethetőségének megkönnyítése érdekében legeneráljuk és beillesztjük a kódba olyan összehasonlító műveletek implementációját, amelyeket a JUnit nem tartalmaz, viszont szükségünk van rájuk az egységes formátum maradéktalan támogatása érdekében.
+					\end{itemize}
+								
+				\subsubsection{JavaScript tesztelés sajátosságai}
+					\begin{itemize}
+						\item Az átalakítás során a Jasminet felhasználó tesztkód kerül előállításra.
+						\item Be kell importálnunk a megoldás kódjában lévő, exportált elemeket. A JavaScript nem ad natív lehetőséget arra, hogy kizárólag a fájlnév alapján beimportáljunk abból mindent, fel kell tudnunk sorolni egyesével az importálandó elemeket. Ennek feloldásaként azt a trükköt alkalmazzuk, hogy olyan kódot illesztünk be a tesztkódba, amely lefutásakor lekérdezi a megoldás fájljából exportált elemek nevét és értékét, és ezeket felhasználva elérhetővé teszi őket a tesztkódban. A megoldás CommonJS és ES6 modulrendszert használva is működik.
 					\end{itemize}
 
 		\section{Fejlesztőkörnyezet}
