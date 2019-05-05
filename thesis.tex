@@ -140,8 +140,8 @@
 					\begin{itemize}
 						\item A megoldás, illetve a tesztek fordításához és futtatásához a Java SE Development Kit 12-es verzióját használjuk, egységteszt keretrendszernek pedig a JUnit 5-ös verzióját. A tesztelésre beküldött megoldás és teszt forráskódoknak meg kell felelniük az ezek által támasztott követelményeknek.
 						\item Fontos szerepe van Java esetén, hogy a forrásfájlokat milyen néven mentjük el, ennek figyelmen kívül hagyása esetén a fordítási folyamat hibával térne vissza. Ha a forrásfájl osztálystruktúrájának legkülső szintjén van publikus osztály, interfész vagy felsorolási típus, akkor a fájl nevének meg kell egyeznie ennek a nevével. Egyéb esetben nincs megkötés a fájlnévvel kapcsolatban. Ezt a szabályt használjuk fel a fájlnév meghatározásakor. A forráskódban definiált osztálynevek kinyeréséhez a JavaParser Java forráskód elemzőt használjuk. A szintaktikai hibák detektálásához szintén a JavaParser-t használjuk.
-						\item Le kell fordítanunk a Java forrásfájlokat, hogy használni tudjuk őket a tesztek futtatásakor. Ehhez a Java Compiler API-t használjuk, ami a Java fordítót használja fel. A lefordított fájlokat a forrásfájlokban opcionálisan deklarálható package-információ szerinti konyvtárstruktúrába helyezzük, a forráskódok ideiglenes mappájába. Ebben a lépésben detektálni tudjuk a fordítási hibákat.
-						\item A JUnitnak a tesztesetek lefuttatásához szüksége van az azokat tartalmazó osztályokra, mint objektumokra, és ehhez ezeknek az osztályoknak be kell töltve lenniük a tesztelő program használatára. Legtöbb Java program esetében már futtatáskor meg tudjuk adni az összes, a program által használandó osztályt. Itt nem ez a helyzet, mert a felhasználótól érkező megoldás és teszt csak a program futása alatt kerül használható formába, ezért ezeket futás alatt, dinamikusan kell betöltenünk. Ennek megoldására osztálybetöltőt használunk, amivel be tudjuk tölteni egy lefordított Java fájlokat tartalmazó mappából az osztályokat. Itt még nem vagyunk készen, ugyanis a betöltött osztályok közül meg kell keresnünk azokat, amelyek a felhasználó tesztkódjában lettek definiálva. Ehhez szükségünk van ezeknek az osztályoknak a teljes elérési neveire, ami nem más, mint a teszt forrásfájl osztálystruktúrájának legkülső szintjén lévő osztályok nevei, prefixálva az opcionális package névvel. Ezeknek az információknak a kinyeréséhez szintén a JavaParser-t használjuk. Az így meghatározott elérési nevek alapján már meg tudjuk kapni a hozzájuk tartozó tesztosztályokat az osztálybetöltőből, amit így már fel tud használni a JUnit a tesztek futtatására.
+						\item Le kell fordítanunk a Java forrásfájlokat, hogy használni tudjuk őket a tesztek futtatásakor. Ehhez a Java Compiler API-t használjuk, ami a Java fordítót használja fel. A lefordított fájlokat a forrásfájlokban opcionálisan deklarálható csomaginformáció szerinti konyvtárstruktúrába helyezzük, a forráskódok ideiglenes mappájába. Ebben a lépésben detektálni tudjuk a fordítási hibákat.
+						\item A JUnitnak a tesztesetek lefuttatásához szüksége van az azokat tartalmazó osztályokra, mint objektumokra, és ehhez ezeknek az osztályoknak be kell töltve lenniük a tesztelő program használatára. Legtöbb Java program esetében már futtatáskor meg tudjuk adni az összes, a program által használandó osztályt. Itt nem ez a helyzet, mert a felhasználótól érkező megoldás és teszt csak a program futása alatt kerül használható formába, ezért ezeket futás alatt, dinamikusan kell betöltenünk. Ennek megoldására osztálybetöltőt használunk, amivel be tudjuk tölteni egy lefordított Java fájlokat tartalmazó mappából az osztályokat. Itt még nem vagyunk készen, ugyanis a betöltött osztályok közül meg kell keresnünk azokat, amelyek a felhasználó tesztkódjában lettek definiálva. Ehhez szükségünk van ezeknek az osztályoknak a teljes elérési neveire, ami nem más, mint a teszt forrásfájl osztálystruktúrájának legkülső szintjén lévő osztályok nevei, prefixálva az opcionális csomagnévvel. Ezeknek az információknak a kinyeréséhez szintén a JavaParser-t használjuk. Az így meghatározott elérési nevek alapján már meg tudjuk kapni a hozzájuk tartozó tesztosztályokat az osztálybetöltőből, amit így már fel tud használni a JUnit a tesztek futtatására.
 					\end{itemize}
 
 				\subsubsection{JavaScript tesztelés sajátosságai}
@@ -231,9 +231,30 @@
 			TODO (heroku)
 		
 		\section{Tesztelés}
+		TODO (bevezetes)
 
 			\subsection{Egységtesztek}
-			TODO (lib leírás, tesztelés eredménye)
+				A megoldás tesztelő rendszerhez egységtesztek készültek. Ezek a tesztek minden részletét letesztelik mind az egységteszt keretrendszer kódján alapuló, mind az egységes formátumon alapuló tesztelési módszernek. A programozási nyelvektől független működésű tesztesetek Java és JavaScript nyelvek használata esetén is meg lettek fogalmazva, ezen kívül le lettek tesztelve a programozási nyelv-specifikus esetek is. A tesztek a TODO (hol van?) fájlban találhatóak, összesen 60 darab egységtesztet tartalmaz. A tesztek írására a Jasmine nevű egységteszt keretrendszert használtam. A leglényegesebb, letesztelt esetek a következőek:
+				\begin{itemize}
+					\item Egységteszt keretrendszer kódján alapuló tesztelés:
+					\begin{itemize}
+						\item Sikeres, sikertelen, illetve kihagyott állapotú tesztesetek
+						\item Üres kód beküldése sikerrel, nulla teszteredménnyel végződik
+						\item Egymásba ágyazott tesztstruktúrákon belüli tesztek is lefutnak
+						\item JavaScript kódokban használható a CommonJS és az ES6 modulrendszer is, illetve minden modern JavaScript nyelvi elem és funkció
+						\item Java kódokban használhatóak a csomagnevek
+						\item Az ideiglenes forráskódokat tartalmazó mappa minden esetben kitörlődik
+						\item Kivétel esetén sikertelen állapot
+						\item Szintaktikai hiba, fordítási hiba és más hibák esetén hibaüzenet
+					\end{itemize}
+					\item Egységes formátumon alapuló tesztelés:
+					\begin{itemize}
+						\item Bármilyen támogatott paraméter típust elváró és önmagát visszaadó egyparaméteres függvény tesztelése a megfelelő eredménnyel zárul, bármely összehasonlító művelet esetén, igaz és hamis eredményt elváró esetekben is
+						\item Nulla-, egy- és többparaméteres függvények is tesztelhetőek
+						\item JavaScript megoldás kódból beimportáljuk, amik exportálva lettek
+						\item Szöveges literálokat escapeljük, tömb literálokat escapelt elválasztó karakter esetén nem vágjuk el
+					\end{itemize}
+				\end{itemize}
 			
 			\subsection{Manuális tesztek}
 			TODO (minden funkció minden kimenetelére given-when-then leírás)
