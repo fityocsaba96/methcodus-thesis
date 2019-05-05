@@ -269,7 +269,7 @@
 \RequirePackage{minted}
 \AtBeginEnvironment{minted}{%
   \renewcommand{\fcolorbox}[4][]{#4}}
-\setminted{autogobble, tabsize=4}
+\setminted{autogobble, tabsize=4, baselinestretch=1}
 \RequirePackage{listingsutf8}
 \lstset{
 	basicstyle=\footnotesize\ttfamily,
