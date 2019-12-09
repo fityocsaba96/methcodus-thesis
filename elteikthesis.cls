@@ -154,6 +154,8 @@
 \RequirePackage{longtable}
 % Celltartalmak vertikális igazítása
 \RequirePackage{array}
+\RequirePackage{tabularx}
+\RequirePackage{ragged2e}
 % ------------------------------
 
 % ------------------------------
