@@ -109,6 +109,7 @@
 				\item[2:] a beküldött kódokban lévő fordítási hibát jelez
 				\item[255:] egyéb, ismeretlen hiba
 			\end{itemize}
+
 			A tesztelő folyamat terminálásakor, a szülőfolyamatban kiolvassuk a standard kimenetet, illetve a kilépési kódot. Ezek alapján, illetve hiba esetén egy hibaüzenetet előállítva küldjük vissza a HTTP választ, ami alapján megjelenítjük a felhasználónak a megoldása állapotát. TODO (tesztelésnek a felületen lévő részeiről, egységes formátum alapú módszernél a validációról is írni)
 		
 			A tesztek futtatására két mód van. Az egyik módszer az egységteszt keretrendszer kódján alapuló tesztelés, másik pedig az egységes formátumon alapuló tesztelés. Mindkét módszer képes együttműködni Java és JavaScript nyelven írt kódokkal.
@@ -225,8 +226,53 @@
 					\end{itemize}
 
 		\section{Fejlesztőkörnyezet}
-		TODO (rendszerkövetelmények, beállítás, futtatás)
-		
+			\subsection{Rendszerkövetelmények}
+				A szerver, illetve a kliens futtatásához szükséges szoftverek:
+				\begin{itemize}
+					\setlength\itemsep{-0.5em}
+					\item Docker futtatására alkalmas operációs rendszer (Windows, macOS vagy Linux)
+					\item Docker Desktop (2.0.0.0 vagy újabb verzió)
+					\item Make (opcionális) (3.81 vagy újabb verzió)
+				\end{itemize}
+
+				Az alkalmazás közvetlenül használt függőségei nem szükségesek, azok Docker konténerek segítségével állnak rendelkezésre.
+
+			\subsection{Fejlesztőkörnyezet beállítása}
+				Másoljuk a DVD melléklet tartalmát számítógépre, majd nyissunk egy terminál ablakot a szerver mappájában (\texttt{methcodus-server}). Indítsuk el a szerver telepítését:
+				\mint{shell}|$ make all|
+
+				Ezzel minden beállításra kerül, ami a szerver használatához szükséges:
+				\begin{itemize}
+					\item Létrejön a szerver futtatására képes Docker konténer, amely rendelkezik az alkalmazás által támogatott programozási nyelveken íródott forráskódok futtatásához szükséges szoftverekkel.
+					\item A konténerben telepítésre kerülnek a tesztelő rendszerek függőségei, vagyis JavaScript esetén Jasmine és Babel, Java esetén pedig JUnit, JavaParser és JSON-Java, illetve lefordításra kerül a Java tesztelő kódja.
+					\item A konténerben telepítésre kerülnek a szerver alkalmazás függőségei.
+					\item Létrejön a MongoDB adatbázis futtatására képes Docker konténer.
+					\item Elindul a két konténer. Egyik elindítja az alkalmazás szerverét a 3000-es porton fejlesztői üzemmódban, a másik pedig az adatbázis szervert. Ezután mindkét szerver elérhető lesz közvetlenül a konténereket futtató számítógépről is, illetve az alkalmazás szerver újra fog indulni fájlmódosítás esetén.
+				\end{itemize}
+
+				A szervert elérhetjük a \url{http://localhost:3000} címen, kipróbálhatjuk annak API-ját például egy API tesztelő szoftver segítségével. A terminálban lépjünk át a kliens könyvtárába (\texttt{methcodus-client}), és indítsuk el a kliens telepítését is:
+				\mint{shell}|$ make all|
+
+				Csakúgy mint a szerver esetében, ezzel minden előkészítésre kerül, ami a kliens használatához szükséges:
+				\begin{itemize}
+					\item Létrejön a kliens futtatására képes Docker konténer.
+					\item A konténerben telepítésre kerülnek a kliens alkalmazás függőségei.
+					\item Elindul a konténer. Elindítja az alkalmazás kliensét a 4200-as porton fejlesztői üzemmódban. Ezután elérhető lesz közvetlenül a konténert futtató számítógépről is, illetve az alkalmazás szerver újra fog indulni fájlmódosítás esetén.
+				\end{itemize}
+
+				Ezek után nyissuk meg egy böngészőben a \url{http://localhost:4200} oldalt, ahol elérhető és használható a kliens alkalmazás. A szerver, illetve a kliens alkalmazás mappájából kiadható néhány, fejlesztés közben hasznos parancs:
+				\begin{center}
+					\begin{tabularx}{\textwidth}{l>{\RaggedRight}X}
+						\texttt{\$ make build} & az alkalmazást futtató konténer(ek) létrehozása/frissítése \\
+						\texttt{\$ make install} & az alkalmazás konténerében a függőségek telepítése/frissítése \\
+						\texttt{\$ make start} & az alkalmazás konténer(ei)nek elindítása \\
+						\texttt{\$ make stop} & az alkalmazás konténer(ei)nek leállítása \\
+						\texttt{\$ make destroy} & az alkalmazás konténer(ei)nek törlése \\
+						\texttt{\$ make npm script=\{SCRIPT\}} & az alkalmazás konténerében a \{SCRIPT\} nevű npm script lefuttatása \\
+						\texttt{\$ make ssh service=\{SERVICE\}} & az alkalmazás \{SERVICE\} nevű konténerjének shelljébe való belépés
+					\end{tabularx}	
+				\end{center}
+				
 		\section{Fejlesztési folyamat}
 
 			\subsection{Csomagkezelés}
