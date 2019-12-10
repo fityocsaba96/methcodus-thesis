@@ -323,7 +323,29 @@
 				Az alkalmazás fejlesztése során a Git verziókövető rendszert használtam. Három különböző repositoryt hoztam létre, egyik a szerver kódját tartalmazza (\texttt{methcodus-server}), másik a kliens kódját (\texttt{methcodus-client}), harmadik pedig a dokumentáció kódját (\texttt{methcodus-thesis}). A Conventional Commits specifikációt használtam a commit üzenetek strukturált megírására. A GitHub egy Git-et használó online verziókövető platform. A repositoryk GitHub-on is elérhetőek a \url{https://github.com/users/fityocsaba96/projects/1} címen.
 			
 			\subsection{Continuous Integration}
-			TODO (Codeship lépésekről (lint, teszt, deploy) írni)
+				A Continuous Integration (CI) az a folyamat, amely a központi kódtárba került kódváltozásokat folyamatosan, automatizáltan képes letesztelni és tovább küldeni az éles rendszerbe való integrálás céljából, amennyiben az megfelel a támasztott követelményeknek. Ez azt jelenti, hogy amint kódváltozás történik, a felhasználók azt szinte azonnal, automatikusan megkapják, így mindig a működő legfrissebb változatot használhatják és nem kell hosszú időket várni az egyes újabb verziók megjelenésére. Egy ilyen rendszer úgy működik, hogy amikor kódváltozást észlel (például új commit érkezik a verziókövető rendszerbe), akkor előkészít egy megfelelő környezetet a kód futtatására a kód legfrissebb változatával együtt, és lefuttat a kóddal kapcsolatban előre megadott parancsokat, amelyekkel a kód működését, minőségét ellenőrzi. Ezek sikertelensége esetén nem történik semmi, ellenkező esetben viszont a kód további folyamatoknak lesz átadva, ahol kikerül éles környezetbe, használatra kész állapotra lesz hozva. Ezt nevezzük deploymentnek.
+
+				A Codeship egy hosztolt, felhőalapú, CI folyamatokat támogató szolgáltatás. Codeshipet használunk mind a szerver, mind a kliens alkalmazás esetén. Amikor commit érkezik a GitHub repository master ágába, lefuttatja a CI folyamatot. A következőkben az alkalmazás CI folyamatai olvashatók.
+
+				Szerver:
+				\begin{itemize}
+					\setlength\itemsep{-0.5em}
+					\item Lemásoljuk a legfrissebb kódbázist egy elkülönített környezetbe.
+					\item Telepítjük a Node.js 13-as verzióját, illetve a Java SE Development Kit 13-as verzióját, amelyekre a folyamat további lépéseiben szükségünk van.
+					\item Telepítjük az alkalmazás függőségeit. Ezek cachelésre kerülnek, azaz legközelebb nem kell minden függőséget újra telepíteni.
+					\item Lebuildeljük az alkalmazást, hogy például a fordítást hibákat és egyéb figyelmetlenségeket kiszűrjük.
+					\item Statikus kódellenőrzést futtatunk TSLint segítségével, amellyel stilisztikai, esztétikai és kódminőségi hibákat szűrhetünk ki.
+					\item Lefuttatjuk az alkalmazáshoz írt egységteszteket, amivel biztosítjuk a tesztelt egységek megfelelő működését.
+					\item Átadjuk a működő kódbázisunkat a Herokunak, ahol az deployolásra kerül.
+				\end{itemize}
+
+				Kliens:
+				\begin{itemize}
+					\setlength\itemsep{-0.5em}
+					\item Szintén lemásoljuk az új kódbázist.
+					\item Telepítjük a Node.js 13-as verzióját, amelyekre a folyamat további lépéseiben szükségünk van.
+					\item Itt is telepítjük a függőségeket, lebuildeljük az alkalmazást, lefuttatjuk a statikus kódellenőrzést, illetve átadjuk a kódbázist deployolásra.
+				\end{itemize}
 			
 			\subsection{Continuous Delivery}
 			TODO (Herokuról írni)
