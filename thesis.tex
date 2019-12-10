@@ -226,6 +226,7 @@
 					\end{itemize}
 
 		\section{Fejlesztőkörnyezet}
+
 			\subsection{Rendszerkövetelmények}
 				A szerver, illetve a kliens futtatásához szükséges szoftverek:
 				\begin{itemize}
@@ -275,6 +276,46 @@
 				
 		\section{Fejlesztési folyamat}
 
+			\subsection{Konténerizálás}
+
+				\subsubsection{Konténerek}
+					Az alkalmazás szerverének és kliensének a fejlesztése konténerekben történik. Egy konténer egy szabványos szoftveregység, ami tartalmazza egy alkalmazás kódját és annak a fejlesztéséhez és futtatásához szükséges összes függőséget, beleértve az operációs rendszert, a szükséges rendszereszközöket, beállításokat, illetve az alkalmazás fejlesztését és futtatását lehetővé tevő rendszereket. Általában érdemes arra törekedni, hogy egy konténer minél kisebb méretű legyen, amit úgy érhetünk el, hogy olyan operációs rendszert választunk kiindulásnak, ami nem tartalmaz túl sok olyan szoftvert, amit nem használ az alkalmazásunk, illetve csak olyan szoftvereket telepítünk, amelyeket az alkalmazásunk valamilyen formában felhasznál. Minden alkalmazásnak más lehet az ideális környezet és általában azt szeretnénk, hogy az alkalmazások függetlenül működjenek egymástól, ezért ajánlatos konténerenként csak egy alkalmazást futtatni. A konténerizált alkalmazások elszigeteltségük miatt általában gyorsabban és megbízhatóbban működnek, mint hagyományos társaik, illetve nem szükséges a használatukhoz semmilyen szoftver a konténereket futtatni képes platformon kívül. Ezen kívül pedig operációs rendszer függetlenek is az ilyen alkalmazások, minden infrastruktúrán ugyanúgy működnek.
+
+					A konténerek hasonlóak a virtuális gépekhez. Legfőbb különbség köztük, hogy a konténerek a szoftvert virtualizálják, a virtuális gépek pedig a hardvert. Emiatt óriási méretbeli és teljesítménybeli különbségek vannak a konténerek javára.
+
+					A Docker egy szoftver konténerek létrehozására és futtatására. Egy konténer leírása \texttt{Dockerfile} fájlban történik. Itt adhatók meg olyan konfigurációk, mint a kiindulási operációs rendszer, a konténer létrehozásakor a függőségek telepítéséhez és a rendszer megfelelő beállításához lefuttatandó shell parancsok, a forrás számítógépről a konténerbe átmásolandó fájlok és a konténer indításakor futtatandó shell parancs. Emellett megadható \texttt{docker-compose.yml} fájl is, amely többkonténeres alkalmazások definiálására, illetve a konténerek futtatásához kapcsolódó beállítások megadására szolgál, mint például környezeti változók megadása, a forrás számítógépről logikai meghajtók felcsatlakoztatása, portok és hálózatok definiálása. Dockert használunk a szerver és kliens alkalmazás konténerizálására. Mivel az alkalmazások teljeskörűen konténerizáltak, csak Dockerre van szükség a fejlesztéshez és futtatáshoz.
+
+				\subsubsection{Az alkalmazás konténerizálása}
+					Az alkalmazás három konténerből épül fel: adatbázis, szerver és kliens. A konténerek közös hálózatra vannak kötve, így el tudják érni egymást. Az alábbiakban ezen konténerek működése olvasható.
+
+					Adatbázis:
+					\begin{itemize}
+						\setlength\itemsep{-0.5em}
+						\item Az adatbázis konténere egy előre elkészített konténer, ami MongoDB 3.6.9 adatbázist futtat.
+						\item Elérhetővé tesszük a konténerben futó adatbázishoz való hozzáférést a 27017-es porton.
+						\item Az adatbázis adatainak tárolására megadunk egy kötetet.
+					\end{itemize}
+
+					Szerver:
+					\begin{itemize}
+						\setlength\itemsep{-0.5em}
+						\item A szerver konténerizálásához az Ubuntu 18.04 operációs rendszerből indulunk ki.
+						\item Telepítjük a Node.js 13-as verzióját, illetve a Java SE Development Kit 13-as verzióját, amelyekre a tesztelő rendszereknek is, és magának az alkalmazásnak is szükségük van.
+						\item Létrehozunk root jogokkal nem rendelkező felhasználót, ő fogja futtatni a szoftvert.
+						\item Elérhetővé tesszük a konténerben futó alkalmazáshoz való hozzáférést a 3000-es porton.
+						\item Beállítjuk a szükséges környezeti változókat, mint például a használandó portot és az adatbázis elérhetőségét.
+						\item Felcsatoljuk a konténerbe az alkalmazás kódját tartalmazó mappát.
+						\item Elindítjuk az alkalmazást fejlesztői módban.
+					\end{itemize}
+
+					Kliens:
+					\begin{itemize}
+						\setlength\itemsep{-0.5em}
+						\item Szintén Ubuntu 18.04-ből indulunk ki.
+						\item Telepítjük a Node.js 13-as verzióját, ami az alkalmazást futtatni fogja.
+						\item Itt is létrehozzuk a root jogok nélküli felhasználót, elérhetővé tesszük a konténeren kívüli hozzáférést a 4200-as porton, beállítjuk a szerver elérhetőségét környezeti változóként, felcsatoljuk a kódot tartalmazó mappát, illetve elindítjuk az alkalmazás fejlesztői módját.
+					\end{itemize}
+
 			\subsection{Csomagkezelés}
 			TODO (npmről írni)
 			
@@ -295,6 +336,7 @@
 				\begin{itemize}
 					\item Egységteszt keretrendszer kódján alapuló tesztelés:
 					\begin{itemize}
+						\setlength\itemsep{-0.5em}
 						\item Sikeres, sikertelen, illetve kihagyott állapotú tesztesetek
 						\item Üres kód beküldése sikerrel, nulla teszteredménnyel végződik
 						\item Egymásba ágyazott tesztstruktúrákon belüli tesztek is lefutnak
@@ -306,6 +348,7 @@
 					\end{itemize}
 					\item Egységes formátumon alapuló tesztelés:
 					\begin{itemize}
+						\setlength\itemsep{-0.5em}
 						\item Bármilyen támogatott paraméter típust elváró és önmagát visszaadó egyparaméteres függvény tesztelése a megfelelő eredménnyel zárul, bármely összehasonlító művelet esetén, igaz és hamis eredményt elváró esetekben is
 						\item Nulla-, egy- és többparaméteres függvények is tesztelhetőek
 						\item JavaScript megoldás kódból beimportáljuk, amik exportálva lettek
