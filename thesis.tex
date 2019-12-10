@@ -320,7 +320,7 @@
 				A csomagkezelés olyan tevékenység, amely során meghatározásra kerülnek, illetve beszerzésre kerülnek az alkalmazás futtatásához szükséges függőségek. Node.js alkalmazásokhoz a legelterjedtebb és legtöbb csomaggal rendelkező csomagkezelő rendszer az npm (Node Package Manager). Az npm esetén egy \texttt{package.json} nevű fájlban lehet meghatározni a függőségeket, scripteket lehet írni a fejlesztés könnyítése céljából, illetve különböző olyan beállításokat lehet megadni, amelyek leginkább akkor jönnek jól, ha közzé akarjuk tenni az alkalmazásunkat csomag formájában az npm-en. A függőségek megadhatók fejlesztési idejű függőségként vagy normál függőségként. Az npm egyben egy CLI eszköz is, amely a \texttt{package.json} fájlból dolgozva többek között telepíteni tudja az abban megadott függőségeket, illetve futtatni tudja a megadott scripteket. A szerver és a kliens alkalmazás függőségeinek kezelésére npm-et használ.
 			
 			\subsection{Verziókövetés}
-			TODO (gitről írni)
+				Az alkalmazás fejlesztése során a Git verziókövető rendszert használtam. Három különböző repositoryt hoztam létre, egyik a szerver kódját tartalmazza (\texttt{methcodus-server}), másik a kliens kódját (\texttt{methcodus-client}), harmadik pedig a dokumentáció kódját (\texttt{methcodus-thesis}). A Conventional Commits specifikációt használtam a commit üzenetek strukturált megírására. A GitHub egy Git-et használó online verziókövető platform. A repositoryk GitHub-on is elérhetőek a \url{https://github.com/users/fityocsaba96/projects/1} címen.
 			
 			\subsection{Continuous Integration}
 			TODO (Codeship lépésekről (lint, teszt, deploy) írni)
