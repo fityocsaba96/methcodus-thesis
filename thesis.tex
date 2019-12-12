@@ -349,6 +349,17 @@
 			
 			\subsection{Continuous Delivery}
 			TODO (Herokuról írni)
+
+			\subsection{Konfigurálás}
+				A szerver, illetve a kliens alkalmazás tulajdonságainak konfigurálása a futtató rendszer környezeti változóinak felhasználásával történik. Ilyen tulajdonság például a szervernél az adatbázis elérhetősége, vagy a kliensnél a szerver elérhetősége. Környezeti változókat használni előnyösebb, mint konfigurációs fájlokat:
+				\begin{itemize}
+					\setlength\itemsep{-0.5em}
+					\item Nem kerül be a konfiguráció a verziókövető rendszerbe, ezért szerveroldalon futtatott kód esetén a szenzitív konfigurációs adatok biztonságban maradnak.
+					\item Teljesen elkülönül egymástól a forráskód és a konfiguráció, így kódváltozás nélkül módosíthatók a konfigurációs adatok.
+					\item Ha egy alkalmazást több környezeten is fel szeretnénk állítani, csak a környezeti változókban lévő konfigurációt szükséges megváltoztatnunk.
+				\end{itemize}
+
+				A szerver alkalmazásban a Node.js egyszerű hozzáférést biztosít a környezeti változókhoz. A kliens esetén szintén a szerveren lévő környezeti változókra lenne szükségünk, de ehhez nem tudunk hozzáférni valós időben. Ennek megoldásaként a kliensbe belecsomagoljuk az aktuális környezeti változókat. Csak az \texttt{environment.json} fájlban megadott nevű környezeti változókat gyűjtjük ki a kliens számára. Erre azért van szükség, mert nem szeretnénk nem releváns, esetleg szenzitív adatokat hozzáférhetővé tenni a kliensen. Fejlesztői mód használatakor egy Webpack plugin segítségével globális változóként definiáljuk a kigyűjtött környezeti változókat a buildelés részeként. Ehhez képest éles módban úgy tesszük elérhetővé ezeket az adatokat, hogy az \texttt{index.html} fájlt úgy szolgáljuk ki a kliensnek, hogy előtte beleillesztünk Cheerio segítségével egy scriptet, ami globális változóként definiálja a környezeti változókat.
 		
 		\section{Tesztelés}
 		TODO (rövid bevezetés)
