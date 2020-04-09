@@ -348,7 +348,42 @@
 				\end{itemize}
 			
 			\subsection{Continuous Delivery}
-			TODO (Herokuról írni)
+        A Continuous Delivery (CD) az a folyamat, amely a kódváltozásokat folyamatosan, automatizáltan képes integrálni az éles rendszerbe olyan módon, hogy az integráció után azonnal az új rendszer áll a felhasználók rendelkezésére a régi helyett. Egy CI rendszerrel kombinálva ennek az az eredménye, hogy amint új, helyesen működő kód kerül beküldésre, a felhasználók azt szinte azonnal, automatikusan megkapják, így mindig a működő legfrissebb változatot használhatják és nem kell hosszú időket várni az egyes újabb verziók megjelenésére. Egy ilyen rendszer úgy működik, hogy amikor valamilyen forrásból új forráskódot kap vagy kódváltozást észlel a hozzákapcsolt verziókövető rendszerben, akkor deployolja azt, vagyis előkészíti a megfelelő éles környezetet a kód futtatására a kód legfrissebb változatának felhasználásával, lebuildeli az alkalmazás éles környezetben használandó változatát, elindítja a lebuildelt alkalmazás kiszolgálását, utolsó lépésként pedig megjelenteti az alkalmazást, így ezután már az új változat fog betöltődni az alkalmazás webcímén.
+
+        A Heroku egy felhőalapú, CI/CD folyamatokat támogató alkalmazás platform szolgáltatás (PaaS). Támogatja a legismertebb programozási nyelvek futtatását, ám lehetőségünk van saját, Docker alapú futtatókörnyezet használatára is. Herokun minden alkalmazás elkülönített, könnyűsúlyú konténerekben, úgynevezett dynokban fut. Bekapcsolható sok különböző kiegészítés, amelyekkel például adatbázis, monitorozási vagy üzenetküldési szolgáltatásokat adhatunk hozzá alkalmazásainkhoz. Herokut használunk a szerver, illetve a kliens alkalmazás CD folyamatainak megvalósítására, az éles alkalmazás kiszolgálására, illetve annak MongoDB adatbázis szolgáltatással való ellátására. Amikor megkapunk egy friss, működő kódbázist a Codeshiptől, lefut a CD folyamat. Az alkalmazás mindkét komponensének Herokun való futtatásához saját, Docker konténer alapú futtatókörnyezeteket használunk, amelyekben felépítjük az alkalmazások megfelelő futásához szükséges körülményeket. Erre azért van szükség, hogy az alkalmazás által támogatott programozási nyelveken íródott forráskódokat futtatni tudjuk. Ezen konténerek nagyon hasonló felépítésűek, mint a fejlesztésre használt változataik, ezzel minimalizáljuk az éles rendszerben fellépő váratlan hibákat. A kódbázisokban található egy-egy \texttt{heroku.yml} fájl, ezek írják le a Heroku számára, hogy hol találhatóak a futtatókörnyezetek definíciói, illetve hogy milyen kiegészítéseket szeretnénk használni, ez jelen esetben a szerver alkalmazás által használt adatbázis szolgáltatás. Az alábbiakban az említett futtatókörnyezetek működése olvasható.
+
+        Szerver:
+        \begin{itemize}
+          \setlength\itemsep{-0.5em}
+          \item A szerver konténerizálásához az Ubuntu 18.04 operációs rendszerből indulunk ki.
+          \item Telepítjük a Node.js 13-as verzióját, illetve a Java SE Development Kit 13-as verzióját, amelyekre a tesztelő rendszereknek is, és magának az alkalmazásnak is szükségük van.
+          \item Létrehozunk root jogokkal nem rendelkező felhasználót, ő fogja futtatni a szoftvert.
+          \item Átmásoljuk a konténerbe az alkalmazás kódját tartalmazó mappát.
+          \item Telepítjük az alkalmazás függőségeit.
+          \item Lebuildeljük az alkalmazást éles módban.
+          \item Töröljük a kizárólag fejlesztéshez szükséges függőségeket.
+          \item Elindítjuk az alkalmazást éles módban. A használandó portot és az adatbázis elérhetőségét előre beállított környezeti változókból kapjuk.
+        \end{itemize}
+
+        Kliens:
+        \begin{itemize}
+          \setlength\itemsep{-0.5em}
+          \item Szintén Ubuntu 18.04-ből indulunk ki.
+          \item Telepítjük a Node.js 13-as verzióját, ami az alkalmazást futtatni fogja.
+          \item Itt is létrehozzuk a root jogok nélküli felhasználót, átmásoljuk a konténerbe a kód mappáját, telepítjük a függőségeket, lebuildeljük az éles alkalmazást, töröljük a nem szükséges függőségeket, illetve elindítjuk az alkalmazás éles módját, amelyhez a szerver elérhetőségét szintén környezeti változóként kapjuk.
+        \end{itemize}
+
+        Az éles kliens alkalmazás statikus fájlokból áll, kiszolgálásához egy saját, egyszerű szerver programot használunk. A szerver az Express nevű webalkalmazás keretrendszert használja fel kiszolgálásra, működése a következő:
+        \begin{itemize}
+          \setlength\itemsep{-0.5em}
+          \item Hallgatunk a bejövő kérésekre környezeti változóban megadott porton keresztül.
+          \item Amennyiben nem HTTPS-en keresztül érkezett a kérés, átirányítjuk azt HTTPS-re.
+          \item Tömörítjük a válaszok törzsét egy külső modul segítségével.
+          \item A statikus fájlokat az \texttt{index.html} kivételével (forrásfájlok, stíluslapok, képek) egyszerűen kiszolgáljuk az eredeti útvonalukon.
+          \item Minden más útvonalon az \texttt{index.html} fájlt, vagyis magát az alkalmazást szolgáljuk ki. Kiszolgálás előtt beillesztünk a HTML kódba Cheerio segítségével egy scriptet, ami globális változóként definiálja a szükséges környezeti változókat a szerverről.
+        \end{itemize}
+
+        Az éles, Herokun futó szerver alkalmazás elérhető a \url{https://methcodus-server.herokuapp.com} címen, a kliens alkalmazás pedig a \url{https://methcodus-client.herokuapp.com} címen található.
 
 			\subsection{Konfigurálás}
 				A szerver, illetve a kliens alkalmazás tulajdonságainak konfigurálása a futtató rendszer környezeti változóinak felhasználásával történik. Ilyen tulajdonság például a szervernél az adatbázis elérhetősége, vagy a kliensnél a szerver elérhetősége. Környezeti változókat használni előnyösebb, mint konfigurációs fájlokat:
@@ -359,7 +394,7 @@
 					\item Ha egy alkalmazást több környezeten is fel szeretnénk állítani, csak a környezeti változókban lévő konfigurációt szükséges megváltoztatnunk.
 				\end{itemize}
 
-				A szerver alkalmazásban a Node.js egyszerű hozzáférést biztosít a környezeti változókhoz. A kliens esetén szintén a szerveren lévő környezeti változókra lenne szükségünk, de ehhez nem tudunk hozzáférni valós időben. Ennek megoldásaként a kliensbe belecsomagoljuk az aktuális környezeti változókat. Csak az \texttt{environment.json} fájlban megadott nevű környezeti változókat gyűjtjük ki a kliens számára. Erre azért van szükség, mert nem szeretnénk nem releváns, esetleg szenzitív adatokat hozzáférhetővé tenni a kliensen. Fejlesztői mód használatakor egy Webpack plugin segítségével globális változóként definiáljuk a kigyűjtött környezeti változókat a buildelés részeként. Ehhez képest éles módban úgy tesszük elérhetővé ezeket az adatokat, hogy az \texttt{index.html} fájlt úgy szolgáljuk ki a kliensnek, hogy előtte beleillesztünk Cheerio segítségével egy scriptet, ami globális változóként definiálja a környezeti változókat.
+				A szerver alkalmazásban a Node.js egyszerű hozzáférést biztosít a környezeti változókhoz. A kliens esetén szintén a szerveren lévő környezeti változókra lenne szükségünk, de ehhez nem tudunk hozzáférni valós időben. Ennek megoldásaként a kliensbe belecsomagoljuk az aktuális környezeti változókat. Csak az \texttt{environment.json} fájlban megadott nevű környezeti változókat gyűjtjük ki a kliens számára. Erre azért van szükség, mert nem szeretnénk nem releváns, esetleg szenzitív adatokat hozzáférhetővé tenni a kliensen. Fejlesztői mód használatakor egy Webpack plugin segítségével globális változóként definiáljuk a kigyűjtött környezeti változókat a buildelés részeként. Ehhez képest éles módban a már említett, HTML kódba szúrt globális változón keresztül érjük el a környezeti változókat.
 		
 		\section{Tesztelés}
 		TODO (rövid bevezetés)
