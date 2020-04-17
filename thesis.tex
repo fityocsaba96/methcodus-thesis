@@ -104,7 +104,7 @@
 			TODO (komponensdiagram, mappaszerkezet, rétegek)
 		
 		\section{Komponensek közti kommunikáció}
-		TODO (szerver, kliens és adatbázis összekötés, szekvenciadiagram egy funkcióra)
+		TODO (szekvenciadiagram egy funkcióra, opcionális)
 
 		\section{A tesztelő rendszer működése}
 			Az alkalmazás leglényegesebb része a tesztelő rendszer. A felhasználók által megoldandó programozási feladatok megoldása közben, illetve azok beküldésekor nyújt támpontot számukra azáltal, hogy kiértékeli a megoldásukat és egységes formájú jelentést készít annak állapotáról. Akár tesztvezérelt fejlesztéssel oldja meg a felhasználó a feladatot, akár nem, ez a rendszer felel a megoldás teszteléséért. A tesztelő rendszer a szerveroldalon található, HTTP kapcsolaton keresztül folyik a kommunikáció. Megkapjuk a teszteléshez szükséges adatokat, elvégezzük a teszteket, utána pedig válaszolunk a teszteredményekkel.
@@ -310,7 +310,7 @@
 						\item Telepítjük a Node.js 13-as verzióját, illetve a Java SE Development Kit 13-as verzióját, amelyekre a tesztelő rendszereknek is, és magának az alkalmazásnak is szükségük van.
 						\item Létrehozunk root jogokkal nem rendelkező felhasználót, ő fogja futtatni a szoftvert.
 						\item Elérhetővé tesszük a konténerben futó alkalmazáshoz való hozzáférést a 3000-es porton.
-						\item Beállítjuk a szükséges környezeti változókat, mint például a használandó portot és az adatbázis elérhetőségét.
+						\item Beállítjuk a szükséges környezeti változókat, mint például a használandó portot, az adatbázis elérhetőségét és az engedélyezett klienseket.
 						\item Felcsatoljuk a konténerbe az alkalmazás kódját tartalmazó mappát.
 						\item Elindítjuk az alkalmazást fejlesztői módban.
 					\end{itemize}
@@ -369,7 +369,7 @@
           \item Telepítjük az alkalmazás függőségeit.
           \item Lebuildeljük az alkalmazást éles módban.
           \item Töröljük a kizárólag fejlesztéshez szükséges függőségeket.
-          \item Elindítjuk az alkalmazást éles módban. A használandó portot és az adatbázis elérhetőségét előre beállított környezeti változókból kapjuk.
+          \item Elindítjuk az alkalmazást éles módban. A használandó portot, az adatbázis elérhetőségét és az engedélyezett klienseket előre beállított környezeti változókból kapjuk.
         \end{itemize}
 
         Kliens:
