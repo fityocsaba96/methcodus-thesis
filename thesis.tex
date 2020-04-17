@@ -60,6 +60,13 @@
 			TODO (mockupok a felületről?)
 			
 			\subsection{Architektúra terv}
+				A specifikációban szereplő igényeinket kiválóan kielégíti egy webes alkalmazás, amelynek architektúrája 3 komponensből áll. Az architektúra tartalmaz egy adatbázist, egy kiszolgálót, amely a szerver alkalmazást működteti, illetve egy másik kiszolgálót, amely a kliens alkalmazásért felel. A szerver alkalmazás egy REST (REpresentational State Transfer) elvekre épített webes API (Application Programming Interface), ami az adatbázis felhasználásával megvalósítja az alkalmazás szerveroldali felületét. A kliens alkalmazás egy SPA (Single Page Application), ami HTTP kéréseken keresztül fog kommunikálni a szerver alkalmazással. A kliens alkalmazást alkotó statikus fájlok elérését egy külön kiszolgáló biztosítja. Ezek a komponensek egy-egy Docker konténerben vannak izolálva egymástól és a külvilágtól.
+				
+				\begin{figure}[H]
+					\centering
+					\includegraphics[scale=0.3333]{architecture-diagram}
+					\caption{Az alkalmazás architektúra terve}
+				\end{figure}
 			TODO (rövid leírás a technikai megvalósításról)
 		
 		\section{Szerver architektúra}
