@@ -60,7 +60,7 @@
 			TODO (mockupok a felületről?)
 			
 			\subsection{Architektúra terv}
-				A specifikációban szereplő igényeinket kiválóan kielégíti egy webes alkalmazás, amelynek architektúrája 3 komponensből áll. Az architektúra tartalmaz egy adatbázist, egy kiszolgálót, amely a szerver alkalmazást működteti, illetve egy másik kiszolgálót, amely a kliens alkalmazásért felel. A szerver alkalmazás egy REST (REpresentational State Transfer) elvekre épített webes API (Application Programming Interface), ami az adatbázis felhasználásával megvalósítja az alkalmazás szerveroldali felületét. A kliens alkalmazás egy SPA (Single Page Application), ami HTTP kéréseken keresztül fog kommunikálni a szerver alkalmazással. A kliens alkalmazást alkotó statikus fájlok elérését egy külön kiszolgáló biztosítja. Ezek a komponensek egy-egy Docker konténerben vannak izolálva egymástól és a külvilágtól.
+				A specifikációban szereplő igényeinket kiválóan kielégíti egy webes alkalmazás, amelynek architektúrája 3 komponensből áll. Az architektúra tartalmaz egy adatbázist, egy kiszolgálót, amely a szerver alkalmazást működteti, illetve egy másik kiszolgálót, amely a kliens alkalmazásért felel. A szerver alkalmazás egy REST elvekre épített webes API, ami az adatbázis felhasználásával megvalósítja az alkalmazás szerveroldali felületét. A kliens alkalmazás egy SPA (Single Page Application), ami HTTP kéréseken keresztül fog kommunikálni a szerver alkalmazással. A kliens alkalmazást alkotó statikus fájlok elérését egy külön kiszolgáló biztosítja. Ezek a komponensek egy-egy Docker konténerben vannak izolálva egymástól és a külvilágtól.
 				
 				\begin{figure}[H]
 					\centering
@@ -81,7 +81,25 @@
 			TODO (leírásuk, működésük, kérés és válasz tartalma, hibalehetőségek)
 			
 			\subsection{Felhasznált technológiák}
-			TODO (mit tud, mire és hogyan használom: REST, Node.js, TypeScript, NestJS, TSLint, MongoDB, Docker, Ubuntu, Java, JavaScript, JUnit, Jasmine, Babel, Core.js, WebSocket, Socket.io, Passport, JWT)
+				\subsubsection{Docker}
+					A Docker \cite{docker} egy nyílt forráskódú konténerizációs platform. Docker segítségével a fejlesztők becsomagolhatják az alkalmazásaikat konténerekbe, amik olyan szabványosított futtatható komponensek, amelyek tartalmazzák az alkalmazás forráskódját az összes olyan operációs rendszeri könyvtárral és függőséggel együtt, amelyek szükségesek ahhoz, hogy a kód bármilyen környezetben futhasson. Bár ilyen konténereket létrehozni Docker nélkül is lehetséges, a Docker egyszerűbbé, könnyebbé és biztonságosabbá teszi a konténerek építését és kezelését. A konténerek operációs rendszeri folyamatizolációval és virtualizációval működnek, amelyek lehetővé teszik azt, hogy több alkalmazás komponens megossza egyetlen kernel erőforrásait. Ez nagyon hasonló elven működik, mint a virtuális gépeknél az erőforrások megosztása, viszont az operációs rendszer szintű absztrakciós rétegnek köszönhetően sokkal kisebb méretűek, az erőforrásokat hatékonyabban használják fel, illetve alkalmazásfejlesztésben egyszerűbben és gyorsabban felhasználhatóak.
+				
+				\subsubsection{Node.js}
+					A Node.js \cite{nodejs} egy nyílt forráskódú, platformfüggetlen JavaScript futtatókörnyezet. Node.js a V8 JavaScript motort használja, ami a Google Chrome magja, ezért nagyon jó teljesítménnyel tud működni. Minden Node.js alkalmazás egy folyamatként, egy szálon fut. Nem hoz létre új szálakat az új kérések miatt, ehelyett aszinkron I/O műveleteket kínál a szabványos könyvtárában, amik meggátolják, hogy a JavaScript kódok blokkolják a program futását. Amikor a Node.js egy I/O műveletet hajt végre, mint például olvasás a hálózatról, egy adatbázisból vagy a fájlrendszerből, a szál blokkolása és CPU ciklusok várakozással való pazarlása helyett akkor folytatja a műveletet, amikor visszakapja a választ. Node.js-ben az új ECMAScript szabványok minden probléma nélkül használhatóak, mert a szerveroldalon való futtatás miatt nem kell arra várni, hogy a felhasználók frissítsék a böngészőjüket, rajtunk múlik hogy a szabvány melyik verzióját szeretnénk használni.
+				
+				\subsubsection{TypeScript}
+					A TypeScript \cite{typescript} egy nyílt forráskódú programozási nyelv, ami JavaScripten alapul, azt statikus típusdefiníciókkal egészíti ki. TypeScriptben a típusok opcionálisak, ebből következőleg minden érvényes JavaScript kód egyben érvényes TypeScript kód is. A nyelv által adott típusmegkötések a fejlesztés során nyújtanak segítséget, illetve dokumentálják a kódot, de közvetlenül nem futtathatók ezek a kódok. A TypeScriptben írt kódokat JavaScript kódokká alakítja át a TypeScript fordító, ezután lesznek futtathatók például böngészőben vagy Node.js-ben.
+				
+				\subsubsection{NestJS}
+					A NestJS \cite{nestjs} egy nyílt forráskódú keretrendszer hatékony, skálázható, szerveroldali Node.js alkalmazások építésére. TypeScriptben és JavaScriptben való kódolásra is lehetőséget ad, kombinálja az objektumorientált programozás, a funkcionális programozás és a reaktív programozás elemeit. A motorháztető alatt a NestJS alapértelmezetten az Expresst használja HTTP szerver keretrendszerként.
+				
+				\subsubsection{REST}
+					A REST (REpresentational State Transfer) \cite{rest} ajánlások, módszerek halmaza webes szolgáltatások programozására. Egy módszert ír le két számítógép (szerver és kliens) HTTP kapcsolaton keresztüli kommunikációjára. Előírja, hogy állapotmentes legyen a kommunikáció, vagyis a kliens által küldött kérésnek minden szükséges információt tartalmaznia kell ahhoz, hogy válaszolni lehessen rá. A REST-nek megfelelő kérések idempotensek, azaz ugyanazt a kérést többször egymás után elküldve ugyanazt a választ kell kapni, továbbá a válaszoknak tartalmaznia kell, hogy a kérés gyorsítótárazható-e vagy nem. A kommunikációnak olyan módon kell rétegezettnek lennie, hogy a kliensek szemszögéből ne derüljön ki, hogy egy közbenső géppel kommunikálnak vagy az aktuális szerverrel.
+				
+				\subsubsection{MongoDB}
+					A MongoDB \cite{mongodb} egy nyílt forráskódú, általános célú, dokumentum alapú elosztott adatbázis szoftver. Elérhető hosztolható változatban, illetve felhőben futó változatban is. Hivatalosan több mint 10 programozási nyelvet támogat, egyszerűen megtanulható, de minden adottsága megvan komplex követelmények teljesítéséhez. Az adatokat rugalmas, JSON-szerű dokumentumokban tárolja, a dokumentumok modellje az alkalmazások kódjában lévő objektumokra illeszkedik, ezért könnyű vele dolgozni.
+
+			TODO (mit tud, mire és hogyan használom: TSLint, Ubuntu, Java, JavaScript, JUnit, Jasmine, Babel, Core.js, WebSocket, Socket.io, Passport, JWT)
 			
 			\subsection{Kód felépítése}
 			TODO (mappaszerkezet, rétegek)
@@ -456,8 +474,20 @@
 
 		\addcontentsline{toc}{chapter}{Irodalomjegyzék}
 
-		\bibitem{test} 
-		\href{http://example.com}{TODO (kitölteni)} (2020.04.06.)
+		\bibitem{docker}
+			IBM: What is Docker?, \texttt{https://www.ibm.com/cloud/learn/docker} (2020.04.18.)
+		\bibitem{nodejs}
+			Nodejs.dev: Introduction to Node.js, \texttt{https://nodejs.dev} (2020.04.18.)
+		\bibitem{typescript}
+			TypeScript: What is TypeScript?, \texttt{https://www.typescriptlang.org} (2020.04.18.)
+		\bibitem{nestjs}
+			NestJS: Introduction, \texttt{https://docs.nestjs.com} (2020.04.18.)
+		\bibitem{rest}
+			Craig Buckler: An Introduction to REST and RESTful APIs, \texttt{https://www.sitepoint.com/developers-rest-api} (2020.04.18.)
+		\bibitem{mongodb}
+			MongoDB: What Is MongoDB?, \texttt{https://www.mongodb.com/what-is-mongodb} (2020.04.18.)
+		\bibitem{test}
+			TODO (kitölteni) \texttt{http://example.com} (2020.04.06.)
 
 	\end{thebibliography}
 	
