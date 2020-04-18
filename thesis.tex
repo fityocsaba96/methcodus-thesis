@@ -60,7 +60,7 @@
 			TODO (mockupok a felületről?)
 			
 			\subsection{Architektúra terv}
-				A specifikációban szereplő igényeinket kiválóan kielégíti egy webes alkalmazás, amelynek architektúrája 3 komponensből áll. Az architektúra tartalmaz egy adatbázist, egy kiszolgálót, amely a szerver alkalmazást működteti, illetve egy másik kiszolgálót, amely a kliens alkalmazásért felel. A szerver alkalmazás egy REST elvekre épített webes API, ami az adatbázis felhasználásával megvalósítja az alkalmazás szerveroldali felületét. A kliens alkalmazás egy SPA (Single Page Application), ami HTTP kéréseken keresztül fog kommunikálni a szerver alkalmazással. A kliens alkalmazást alkotó statikus fájlok elérését egy külön kiszolgáló biztosítja. Ezek a komponensek egy-egy Docker konténerben vannak izolálva egymástól és a külvilágtól.
+				A specifikációban szereplő igényeinket kiválóan kielégíti egy webes alkalmazás, amelynek architektúrája 3 komponensből áll. Az architektúra tartalmaz egy adatbázist, egy kiszolgálót, amely a szerver alkalmazást működteti, illetve egy másik kiszolgálót, amely a kliens alkalmazásért felel. A szerver alkalmazás egy REST elvekre épített webes API, ami az adatbázis felhasználásával megvalósítja az alkalmazás szerveroldali felületét. A kliens alkalmazás egy SPA, ami HTTP kéréseken keresztül fog kommunikálni a szerver alkalmazással. A kliens alkalmazást alkotó statikus fájlok elérését egy külön kiszolgáló biztosítja. Ezek a komponensek egy-egy Docker konténerben vannak izolálva egymástól és a külvilágtól.
 				
 				\begin{figure}[H]
 					\centering
@@ -116,7 +116,16 @@
 			TODO (leírásuk, működésük, hibalehetőségek)
 			
 			\subsection{Felhasznált technológiák}
-			TODO (mit tud, mire és hogy használom: Angular, TypeScript, Redux, SPA, CSS, PrimeNG)
+				\subsubsection{Angular}
+					Az Angular \cite{angular} egy nyílt forráskódú, platformfüggetlen, kliensoldali JavaScript keretrendszer, amely TypeScriptben való fejlesztésre ad lehetőséget. Használatával webes, mobil és asztali alkalmazások is fejleszthetők, támogatja a SPA-k fejlesztését is. Egy Angular alkalmazás általában sok apró komponensből épül fel, egy komponens tartalmazza magát a forráskódot (TypeScript), a megjelenést (HTML) és a stílust is (CSS). Kétirányú adatkötést használ, aminek köszönhetően automatikusan követi a felhasználói felület az adattár változásait, illetve az adattár a felhasználói felület változásait.
+			
+				\subsubsection{SPA}
+					A SPA (Single-Page Application) \cite{spa} egy webalkalmazás implementáció, amely egyetlen oldalbetöltéssel letölti az alkalmazás működéséhez szükséges összes JavaScript, HTML és CSS fájlt, és az alkalmazás különböző tartalmainak lekérésekor mindig csak az oldal tartalma módosul a teljes újratöltés helyett. Ez megengedi a felhasználóknak azt, hogy anélkül használjanak weboldalakat, hogy közben új oldalakat kellene letölteni a szerverről, ami teljesítménybeli javulást és dinamikusabb felhasználói élményt hozhat, viszont nagyobb erőfeszítést igényel egy ilyen alkalmazás fejlesztése és karbantartása.
+			
+				\subsubsection{Express}
+					Az Express \cite{express} egy nyílt forráskódú, minimalista keretrendszer szerveroldali Node.js alkalmazások építésére, amely a Node.js beépített HTTP moduljára épül. Nagyon rugalmasan, sokféleképpen használható, nem írja elő, hogy hogyan kell felépíteni, strukturálni a vele írt alkalmazásokat.
+
+			TODO (mit tud, mire és hogy használom: Redux, CSS, PrimeNG)
 			
 			\subsection{Kód felépítése}
 			TODO (komponensdiagram, mappaszerkezet, rétegek)
@@ -475,19 +484,35 @@
 		\addcontentsline{toc}{chapter}{Irodalomjegyzék}
 
 		\bibitem{docker}
-			IBM: What is Docker?, \texttt{https://www.ibm.com/cloud/learn/docker} (2020.04.18.)
+			IBM: What is Docker? (2020.04.18.)
+			\\\texttt{https://www.ibm.com/cloud/learn/docker}
 		\bibitem{nodejs}
-			Nodejs.dev: Introduction to Node.js, \texttt{https://nodejs.dev} (2020.04.18.)
+			Nodejs.dev: Introduction to Node.js (2020.04.18.)
+			\\\texttt{https://nodejs.dev}
 		\bibitem{typescript}
-			TypeScript: What is TypeScript?, \texttt{https://www.typescriptlang.org} (2020.04.18.)
+			TypeScript: What is TypeScript? (2020.04.18.)
+			\\\texttt{https://www.typescriptlang.org}
 		\bibitem{nestjs}
-			NestJS: Introduction, \texttt{https://docs.nestjs.com} (2020.04.18.)
+			NestJS: Introduction (2020.04.18.)
+			\\\texttt{https://docs.nestjs.com}
 		\bibitem{rest}
-			Craig Buckler: An Introduction to REST and RESTful APIs, \texttt{https://www.sitepoint.com/developers-rest-api} (2020.04.18.)
+			Craig Buckler: An Introduction to REST and RESTful APIs (2020.04.18.)
+			\\\texttt{https://www.sitepoint.com/developers-rest-api}
 		\bibitem{mongodb}
-			MongoDB: What Is MongoDB?, \texttt{https://www.mongodb.com/what-is-mongodb} (2020.04.18.)
+			MongoDB: What Is MongoDB? (2020.04.18.)
+			\\\texttt{https://www.mongodb.com/what-is-mongodb}
+		\bibitem{angular}
+			Aman Goel: Why should you learn Angular? (2020.04.18.)
+			\\\texttt{https://hackr.io/blog/why-should-you-learn-angular}
+		\bibitem{spa}
+			MDN: SPA (Single-page application) (2020.04.18.)
+			\\\texttt{https://developer.mozilla.org/en-US/docs/Glossary/SPA}
+		\bibitem{express}
+			freeCodeCamp.org: ExpressJS (2020.04.18.)
+			\\\texttt{https://guide.freecodecamp.org/nodejs/express}
 		\bibitem{test}
-			TODO (kitölteni) \texttt{http://example.com} (2020.04.06.)
+			TODO (kitölteni) (2020.04.06.)
+			\\\texttt{http://example.com}
 
 	\end{thebibliography}
 	
