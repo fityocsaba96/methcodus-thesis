@@ -351,7 +351,7 @@
 				A csomagkezelés olyan tevékenység, amely során meghatározásra kerülnek, illetve beszerzésre kerülnek az alkalmazás futtatásához szükséges függőségek. Node.js alkalmazásokhoz a legelterjedtebb és legtöbb csomaggal rendelkező csomagkezelő rendszer az npm (Node Package Manager). Az npm esetén egy \texttt{package.json} nevű fájlban lehet meghatározni a függőségeket, scripteket lehet írni a fejlesztés könnyítése céljából, illetve különböző olyan beállításokat lehet megadni, amelyek leginkább akkor jönnek jól, ha közzé akarjuk tenni az alkalmazásunkat csomag formájában az npm-en. A függőségek megadhatók fejlesztési idejű függőségként vagy normál függőségként. Az npm egyben egy CLI eszköz is, amely a \texttt{package.json} fájlból dolgozva többek között telepíteni tudja az abban megadott függőségeket, illetve futtatni tudja a megadott scripteket. A szerver és a kliens alkalmazás függőségeinek kezelésére npm-et használ.
 			
 			\subsection{Verziókövetés}
-				Az alkalmazás fejlesztése során a Git verziókövető rendszert használtam. Három különböző repositoryt hoztam létre, egyik a szerver kódját tartalmazza (\texttt{methcodus-server}), másik a kliens kódját (\texttt{methcodus-client}), harmadik pedig a dokumentáció kódját (\texttt{methcodus-thesis}). A Conventional Commits specifikációt használtam a commit üzenetek strukturált megírására. A GitHub egy Git-et használó online verziókövető platform. A repositoryk GitHub-on is elérhetőek a \url{https://github.com/users/fityocsaba96/projects/1} címen.
+				A Git \cite{git} egy nyílt forráskódú, elosztott verziókövető rendszer, egyben a legelterjedtebb mind nyílt forráskódú, mind kereskedelmi projektekre. A legtöbb operációs rendszerrel és fejlesztőkörnyezettel együttműködik, kiemelkedő teljesítménnyel rendelkezik.	Az alkalmazás fejlesztése során a Git verziókövető rendszert használtam. Három különböző repositoryt hoztam létre, egyik a szerver kódját tartalmazza (\texttt{methcodus-server}), másik a kliens kódját (\texttt{methcodus-client}), harmadik pedig a dokumentáció kódját (\texttt{methcodus-thesis}). A Conventional Commits specifikációt használtam a commit üzenetek strukturált megírására. A GitHub egy Gitet használó online verziókövető platform. GitHubot használtam a verziókövetés céljából, a repositoryk elérhetőek a \url{https://github.com/users/fityocsaba96/projects/1} címen.
 			
 			\subsection{Continuous Integration}
 				A Continuous Integration (CI) az a folyamat, amely a központi kódtárba került kódváltozásokat folyamatosan, automatizáltan képes letesztelni és amennyiben az megfelel a támasztott követelményeknek, továbbítja a Continuous Delivery (CD) folyamatnak az éles rendszerbe való integrálás céljából. Egy ilyen rendszer úgy működik, hogy amikor kódváltozást észlel (például új commit érkezik a verziókövető rendszerbe), akkor előkészít egy megfelelő környezetet a kód futtatására a kód legfrissebb változatával együtt, és lefuttat a kóddal kapcsolatban előre megadott parancsokat, amelyekkel a kód működését, minőségét ellenőrzi. Ezek sikertelensége esetén nem történik semmi, ellenkező esetben viszont a kód egy CD folyamatnak lehet átadva, ahol kikerül éles környezetbe, használatra kész állapotra lesz hozva. Ezt nevezzük deploymentnek.
@@ -483,6 +483,9 @@
 		\bibitem{docker}
 			IBM: What is Docker? (2019.12.10.)
 			\\\texttt{https://www.ibm.com/cloud/learn/docker}
+		\bibitem{git}
+			Atlassian: What is Git (2019.12.10.)
+			\\\texttt{https://www.atlassian.com/git/tutorials/what-is-git}
 		\bibitem{nodejs}
 			Nodejs.dev: Introduction to Node.js (2020.04.18.)
 			\\\texttt{https://nodejs.dev}
