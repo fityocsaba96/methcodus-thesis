@@ -96,7 +96,7 @@
 				\subsubsection{MongoDB}
 					A MongoDB \cite{mongodb} egy nyílt forráskódú, általános célú, dokumentum alapú elosztott adatbázis szoftver. Elérhető hosztolható változatban, illetve felhőben futó változatban is. Hivatalosan több mint 10 programozási nyelvet támogat, egyszerűen megtanulható, de minden adottsága megvan komplex követelmények teljesítéséhez. Az adatokat rugalmas, JSON-szerű dokumentumokban tárolja, a dokumentumok modellje az alkalmazások kódjában lévő objektumokra illeszkedik, ezért könnyű vele dolgozni.
 
-			TODO (mit tud, mire és hogyan használom: TSLint, Ubuntu, Java, JavaScript, JUnit, Jasmine, Babel, Core.js, WebSocket, Socket.io, Passport, JWT)
+			TODO (mit tud, mire és hogyan használom: TSLint, Ubuntu, Java, JavaScript, JUnit, Jasmine, Babel, Core.js, WebSocket, Socket.io, Passport, JWT, Node-cache)
 			
 			\subsection{Kód felépítése}
 			TODO (mappaszerkezet, rétegek)
@@ -122,7 +122,7 @@
 				\subsubsection{Express}
 					Az Express \cite{express} egy nyílt forráskódú, minimalista keretrendszer szerveroldali Node.js alkalmazások építésére, amely a Node.js beépített HTTP moduljára épül. Nagyon rugalmasan, sokféleképpen használható, nem írja elő, hogy hogyan kell felépíteni, strukturálni a vele írt alkalmazásokat.
 
-			TODO (mit tud, mire és hogy használom: Redux, CSS, PrimeNG)
+			TODO (mit tud, mire és hogy használom: Redux, CSS, PrimeNG, Monaco Editor)
 			
 			\subsection{Kód felépítése}
 			TODO (komponensdiagram, mappaszerkezet, rétegek)
@@ -182,7 +182,7 @@
 
 				\subsubsection{Java tesztelés sajátosságai}
 					\begin{itemize}
-						\item A megoldás, illetve a tesztek fordításához és futtatásához a Java SE Development Kit 13-as verzióját használjuk, egységteszt keretrendszernek pedig a JUnit 5-ös verzióját. A tesztelésre beküldött megoldás és teszt forráskódoknak meg kell felelniük az ezek által támasztott követelményeknek.
+						\item A megoldás, illetve a tesztek fordításához és futtatásához az OpenJDK 14-es verzióját használjuk, egységteszt keretrendszernek pedig a JUnit 5-ös verzióját. A tesztelésre beküldött megoldás és teszt forráskódoknak meg kell felelniük az ezek által támasztott követelményeknek.
 						\item Fontos szerepe van Java esetén, hogy a forrásfájlokat milyen néven mentjük el, ennek figyelmen kívül hagyása esetén a fordítási folyamat hibával térne vissza. Ha a forrásfájl osztálystruktúrájának legkülső szintjén van publikus osztály, interfész vagy felsorolási típus, akkor a fájl nevének meg kell egyeznie ennek a nevével. Egyéb esetben nincs megkötés a fájlnévvel kapcsolatban. Ezt a szabályt használjuk fel a fájlnév meghatározásakor. A forráskódban definiált osztálynevek kinyeréséhez a JavaParser Java forráskód elemzőt használjuk. A szintaktikai hibák detektálásához szintén a JavaParser-t használjuk.
 						\item Le kell fordítanunk a Java forrásfájlokat, hogy használni tudjuk őket a tesztek futtatásakor. Ehhez a Java Compiler API-t használjuk, ami a Java fordítót használja fel. A lefordított fájlokat a forrásfájlokban opcionálisan deklarálható csomaginformáció szerinti konyvtárstruktúrába helyezzük, a forráskódok ideiglenes mappájába. Ebben a lépésben detektálni tudjuk a fordítási hibákat.
 						\item A JUnitnak a tesztesetek lefuttatásához szüksége van az azokat tartalmazó osztályokra, mint objektumokra, és ehhez ezeknek az osztályoknak be kell töltve lenniük a tesztelő program használatára. Legtöbb Java program esetében már futtatáskor meg tudjuk adni az összes, a program által használandó osztályt. Itt nem ez a helyzet, mert a felhasználótól érkező megoldás és teszt csak a program futása alatt kerül használható formába, ezért ezeket futás alatt, dinamikusan kell betöltenünk. Ennek megoldására osztálybetöltőt használunk, amivel be tudjuk tölteni egy lefordított Java fájlokat tartalmazó mappából az osztályokat. Itt még nem vagyunk készen, ugyanis a betöltött osztályok közül meg kell keresnünk azokat, amelyek a felhasználó tesztkódjában lettek definiálva. Ehhez szükségünk van ezeknek az osztályoknak a teljes elérési neveire, ami nem más, mint a teszt forrásfájl osztálystruktúrájának legkülső szintjén lévő osztályok nevei, prefixálva az opcionális csomagnévvel. Ezeknek az információknak a kinyeréséhez szintén a JavaParser-t használjuk. Az így meghatározott elérési nevek alapján már meg tudjuk kapni a hozzájuk tartozó tesztosztályokat az osztálybetöltőből, amit így már fel tud használni a JUnit a tesztek futtatására.
@@ -190,9 +190,9 @@
 
 				\subsubsection{JavaScript tesztelés sajátosságai}
 					\begin{itemize}
-						\item A megoldás, illetve a tesztek futtatásához a Node.js 13-as verzióját használjuk, egységteszt keretrendszernek pedig a Jasmine 3-as verzióját. A tesztelésre beküldött megoldás és teszt forráskódoknak meg kell felelniük az ezek által támasztott követelményeknek.
+						\item A megoldás, illetve a tesztek futtatásához a Node.js 14-es verzióját használjuk, egységteszt keretrendszernek pedig a Jasmine 3-as verzióját. A tesztelésre beküldött megoldás és teszt forráskódoknak meg kell felelniük az ezek által támasztott követelményeknek.
 						\item Bár JavaScript esetén a forráskódokat bármilyen néven elmenthetjük, a konvenció szerinti néven mentjük el őket, a megoldást \texttt{index.js}, a tesztet pedig \texttt{index.spec.js} néven. Ez segíti a megoldó felhasználót, hiszen így a tesztkódban, a megoldás importálásakor nem kell tudnia, hogy honnan kell importálnia, elegendő a jelenlegi mappa elérési útját megadnia, ami \texttt{"."}.
-						\item Mivel Node.js 13-as verzióját használjuk a futtatáshoz, így azokat a JavaScript funkciókat, elemeket használhatja a felhasználó, amelyek ebbe be vannak építve. Ezt ki szeretnénk terjeszteni a legújabbakra, ennek érdekében Babel-t és Core.js-t használunk. A Babel feladata, hogy a felhasználó JavaScript forráskódját, amiben a legújabb JavaScript elemek is fel lehetnek használva, átalakítsa olyan JavaScript kóddá, ami működése alapján teljesen megegyezik, viszont az újabb nyelvi elemeket, amelyeket a JavaScriptet futtató környezet még nem támogat, helyettesíti más, megegyező működésű konstrukciókkal. A Core.js feladata pedig, hogy a felhasználó JavaScript kódjában lehetővé tegye olyan osztályok, függvények használatát, amelyek részei, vagy részei lesznek a JavaScript standard függvénytárának, de a futtató környezet még nem tartalmazza ezeket. Ezt úgy éri el, hogy a kódban helyettesíti a megfelelő osztály- és függvényhasználatokat azoknak a Core.js szerinti implementációjával. A felhasználónak a kódban nem kell tennie semmi különöset, a Babel és a Core.js olyan módon került beállításra, hogy a szükséges módosítások a felhasználó forráskódjában automatikusan megtörténnek azok betöltésekor.
+						\item Mivel Node.js 14-es verzióját használjuk a futtatáshoz, így azokat a JavaScript funkciókat, elemeket használhatja a felhasználó, amelyek ebbe be vannak építve. Ezt ki szeretnénk terjeszteni a legújabbakra, ennek érdekében Babel-t és Core.js-t használunk. A Babel feladata, hogy a felhasználó JavaScript forráskódját, amiben a legújabb JavaScript elemek is fel lehetnek használva, átalakítsa olyan JavaScript kóddá, ami működése alapján teljesen megegyezik, viszont az újabb nyelvi elemeket, amelyeket a JavaScriptet futtató környezet még nem támogat, helyettesíti más, megegyező működésű konstrukciókkal. A Core.js feladata pedig, hogy a felhasználó JavaScript kódjában lehetővé tegye olyan osztályok, függvények használatát, amelyek részei, vagy részei lesznek a JavaScript standard függvénytárának, de a futtató környezet még nem tartalmazza ezeket. Ezt úgy éri el, hogy a kódban helyettesíti a megfelelő osztály- és függvényhasználatokat azoknak a Core.js szerinti implementációjával. A felhasználónak a kódban nem kell tennie semmi különöset, a Babel és a Core.js olyan módon került beállításra, hogy a szükséges módosítások a felhasználó forráskódjában automatikusan megtörténnek azok betöltésekor.
 						\item A Jasminenak a tesztek futtatásához a teszteseteket tartalmazó fájl elérési útjára van szüksége, amely rendelkezésünkre áll. Az esetleges szintaktikai hibák már a tesztek futtatásakor derülnek ki.
 					\end{itemize}
 
@@ -331,7 +331,7 @@
 					\begin{itemize}
 						\setlength\itemsep{-0.5em}
 						\item A szerver konténerizálásához az Ubuntu 18.04 operációs rendszerből indulunk ki.
-						\item Telepítjük a Node.js 13-as verzióját, illetve a Java SE Development Kit 13-as verzióját, amelyekre a tesztelő rendszereknek is, és magának az alkalmazásnak is szükségük van.
+						\item Telepítjük a Node.js 14-es verzióját, illetve az OpenJDK 14-es verzióját, amelyekre a tesztelő rendszereknek is, és magának az alkalmazásnak is szükségük van.
 						\item Létrehozunk root jogokkal nem rendelkező felhasználót, ő fogja futtatni a szoftvert.
 						\item Elérhetővé tesszük a konténerben futó alkalmazáshoz való hozzáférést a 3000-es porton.
 						\item Beállítjuk a szükséges környezeti változókat, mint például a használandó portot, az adatbázis elérhetőségét és az engedélyezett klienseket.
@@ -343,7 +343,7 @@
 					\begin{itemize}
 						\setlength\itemsep{-0.5em}
 						\item Szintén Ubuntu 18.04-ből indulunk ki.
-						\item Telepítjük a Node.js 13-as verzióját, ami az alkalmazást futtatni fogja.
+						\item Telepítjük a Node.js 14-es verzióját, ami az alkalmazást futtatni fogja.
 						\item Itt is létrehozzuk a root jogok nélküli felhasználót, elérhetővé tesszük a konténeren kívüli hozzáférést a 4200-as porton, beállítjuk a szerver elérhetőségét környezeti változóként, felcsatoljuk a kódot tartalmazó mappát, illetve elindítjuk az alkalmazás fejlesztői módját.
 					\end{itemize}
 
@@ -362,7 +362,7 @@
 				\begin{itemize}
 					\setlength\itemsep{-0.5em}
 					\item Lemásoljuk a legfrissebb kódbázist egy elkülönített környezetbe.
-					\item Telepítjük a Node.js 13-as verzióját, illetve a Java SE Development Kit 13-as verzióját, amelyekre a folyamat további lépéseiben szükségünk van.
+					\item Telepítjük a Node.js 14-es verzióját, illetve az OpenJDK 14-es verzióját, amelyekre a folyamat további lépéseiben szükségünk van.
 					\item Telepítjük az alkalmazás függőségeit. Ezek cachelésre kerülnek, azaz legközelebb nem kell minden függőséget újra telepíteni.
 					\item Lebuildeljük az alkalmazást, hogy például a fordítást hibákat és egyéb figyelmetlenségeket kiszűrjük.
 					\item Statikus kódellenőrzést futtatunk TSLint segítségével, amellyel stilisztikai, esztétikai és kódminőségi hibákat szűrhetünk ki.
@@ -374,7 +374,7 @@
 				\begin{itemize}
 					\setlength\itemsep{-0.5em}
 					\item Szintén lemásoljuk az új kódbázist.
-					\item Telepítjük a Node.js 13-as verzióját, amelyekre a folyamat további lépéseiben szükségünk van.
+					\item Telepítjük a Node.js 14-es verzióját, amelyekre a folyamat további lépéseiben szükségünk van.
 					\item Itt is telepítjük a függőségeket, lebuildeljük az alkalmazást, lefuttatjuk a statikus kódellenőrzést, illetve átadjuk a kódbázist deployolásra.
 				\end{itemize}
 			
@@ -387,7 +387,7 @@
         \begin{itemize}
           \setlength\itemsep{-0.5em}
           \item A szerver konténerizálásához az Ubuntu 18.04 operációs rendszerből indulunk ki.
-          \item Telepítjük a Node.js 13-as verzióját, illetve a Java SE Development Kit 13-as verzióját, amelyekre a tesztelő rendszereknek is, és magának az alkalmazásnak is szükségük van.
+          \item Telepítjük a Node.js 14-es verzióját, illetve az OpenJDK 14-es verzióját, amelyekre a tesztelő rendszereknek is, és magának az alkalmazásnak is szükségük van.
           \item Létrehozunk root jogokkal nem rendelkező felhasználót, ő fogja futtatni a szoftvert.
           \item Átmásoljuk a konténerbe az alkalmazás kódját tartalmazó mappát.
           \item Telepítjük az alkalmazás függőségeit.
@@ -400,7 +400,7 @@
         \begin{itemize}
           \setlength\itemsep{-0.5em}
           \item Szintén Ubuntu 18.04-ből indulunk ki.
-          \item Telepítjük a Node.js 13-as verzióját, ami az alkalmazást futtatni fogja.
+          \item Telepítjük a Node.js 14-es verzióját, ami az alkalmazást futtatni fogja.
           \item Itt is létrehozzuk a root jogok nélküli felhasználót, átmásoljuk a konténerbe a kód mappáját, telepítjük a függőségeket, lebuildeljük az éles alkalmazást, töröljük a nem szükséges függőségeket, illetve elindítjuk az alkalmazás éles módját, amelyhez a szerver elérhetőségét szintén környezeti változóként kapjuk.
         \end{itemize}
 
