@@ -38,7 +38,7 @@
 		TODO (mire való, kik mikor mire használják, összehasonlítás Codewarssal és hagyományos fejlesztőkörnyezettel)
 		
 		\section{Használati követelmények}
-		TODO (rendszerkövetelmények, tudásbeli követelmények, elérési link)
+		TODO (rendszerkövetelmények, tudásbeli követelmények, angol nyelv, elérési link)
 		
 		\section{Alkalmazás funkciói}
 		TODO (minden funkció leírása képernyőképekkel, külön regisztrált és nem regisztrált felhasználóra, külön helyes és hibás használatra)
@@ -80,6 +80,9 @@
 			\subsection{Végpontok}
 			TODO (leírásuk, működésük, kérés és válasz tartalma, hibalehetőségek)
 			
+			\subsection{WebSocket üzenetek}
+			TODO (leírásuk, működésük, oda- vissza üzenetek tartalma, hibalehetőségek)
+			
 			\subsection{Felhasznált technológiák}				
 				\subsubsection{Node.js}
 					A Node.js \cite{nodejs} egy nyílt forráskódú, platformfüggetlen JavaScript futtatókörnyezet. Node.js a V8 JavaScript motort használja, ami a Google Chrome magja, ezért nagyon jó teljesítménnyel tud működni. Minden Node.js alkalmazás egy folyamatként, egy szálon fut. Nem hoz létre új szálakat az új kérések miatt, ehelyett aszinkron I/O műveleteket kínál a szabványos könyvtárában, amik meggátolják, hogy a JavaScript kódok blokkolják a program futását. Amikor a Node.js egy I/O műveletet hajt végre, mint például olvasás a hálózatról, egy adatbázisból vagy a fájlrendszerből, a szál blokkolása és CPU ciklusok várakozással való pazarlása helyett akkor folytatja a műveletet, amikor visszakapja a választ. Node.js-ben az új ECMAScript szabványok minden probléma nélkül használhatóak, mert a szerveroldalon való futtatás miatt nem kell arra várni, hogy a felhasználók frissítsék a böngészőjüket, rajtunk múlik hogy a szabvány melyik verzióját szeretnénk használni.
@@ -119,10 +122,13 @@
 				\subsubsection{SPA}
 					A SPA (Single-Page Application) \cite{spa} egy webalkalmazás implementáció, amely egyetlen oldalbetöltéssel letölti az alkalmazás működéséhez szükséges összes JavaScript, HTML és CSS fájlt, és az alkalmazás különböző tartalmainak lekérésekor mindig csak az oldal tartalma módosul a teljes újratöltés helyett. Ez megengedi a felhasználóknak azt, hogy anélkül használjanak weboldalakat, hogy közben új oldalakat kellene letölteni a szerverről, ami teljesítménybeli javulást és dinamikusabb felhasználói élményt hozhat, viszont nagyobb erőfeszítést igényel egy ilyen alkalmazás fejlesztése és karbantartása.
 			
+				\subsubsection{CodeMirror}
+					A CodeMirror \cite{codemirror} egy nyílt forráskódú, sokoldalú, JavaScriptben írt szövegszerkesztő, amely böngészőkben fut. Leginkább forráskódok szerkesztésére van specializálva, több mint 100 programozási nyelvet támogat. Rendelkezik megszokott kódszerkesztési tulajdonságokkal, mint például szintaxiskiemelés, előre- és visszavonás, billentyűparancsok. Ezek további, összetettebb tulajdonságokkal bővíthetők, ilyen például a keresés és az automatikus kódkiegészítés. Gazdag API-jának és CSS alapú stílusrendszerének köszönhetően szabadon testreszabható, illetve kiegészíthető új funkcionalitással.
+
 				\subsubsection{Express}
 					Az Express \cite{express} egy nyílt forráskódú, minimalista keretrendszer szerveroldali Node.js alkalmazások építésére, amely a Node.js beépített HTTP moduljára épül. Nagyon rugalmasan, sokféleképpen használható, nem írja elő, hogy hogyan kell felépíteni, strukturálni a vele írt alkalmazásokat.
 
-			TODO (mit tud, mire és hogy használom: Redux, CSS, PrimeNG, Monaco Editor)
+			TODO (mit tud, mire és hogy használom: Redux, CSS, PrimeNG)
 			
 			\subsection{Kód felépítése}
 			TODO (komponensdiagram, mappaszerkezet, rétegek)
@@ -528,6 +534,9 @@
 		\bibitem{spa}
 			MDN: SPA (Single-page application) (2020.04.18.)
 			\\\url{https://developer.mozilla.org/en-US/docs/Glossary/SPA}
+		\bibitem{codemirror}
+			CodeMirror (2020.05.18.)
+			\\\url{https://codemirror.net}
 		\bibitem{express}
 			freeCodeCamp.org: ExpressJS (2020.04.18.)
 			\\\url{https://guide.freecodecamp.org/nodejs/express}
