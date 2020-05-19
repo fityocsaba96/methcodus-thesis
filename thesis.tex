@@ -113,6 +113,24 @@
 			TODO (leírásuk, komponenseik)
 			
 			\subsection{Komponensek}
+				\subsubsection{Code Editor}
+				A Code Editor komponens valósítja meg az alkalmazásban használt kódszerkesztőt. A cél egy olyan kódszerkesztő létrehozása, amely nagyban megkönnyíti a különböző szoftverfejlesztési módszerek támogatását. Ezt használjuk fel a feladatok megoldásánál bármely módszer választása esetén, illetve a saját megoldások listázásánál is. A komponens a CodeMirror nevű kódszerkesztőre épül, néhány funkcióját átveszi, néhányat pedig testreszabja az alkalmazás igényeire. Lehetőséget nyújt az alkalmazás által támogatott programozási nyelvek használatára, a szerkesztő kezdeti tartalmának beállítására és jelenlegi tartalmának lekérésére. Kiegészítőket használ fel, amelyekkel például képes keresni, kikommentelni bizonyos sorokat és kiemelni a kijelöléssel egyező részeket a szövegben.
+				
+				Lehetőség van különböző szerkesztési módok beállítására, azok közötti váltásra:
+				\begin{itemize}
+					\item Normál mód: ez az alapértelmezett mód, ebben a módban tudja a felhasználó szerkeszteni a tartalmat.
+					\item Csak olvasható mód: a tartalom szerkesztése le van tiltva, csak annak kijelölése és másolása van engedélyezve ebben a módban. A kurzor villogásának és egyéb vizuális kódszerkesztési tulajdonságoknak a kikapcsolása segíti a felhasználót a mód megkülönböztetésében.
+					\item Inaktív mód: ebben a módban a kód szerkesztése és kijelölése is le van tiltva. A szerkesztő elhalványulása és tiltó jelzés megjelenítése jelzi a felhasználónak, hogy jelenleg nem használhatja a szerkesztőt.
+				\end{itemize}
+
+				A komponens lehetővé teszi a szerkesztőben történő változásokba való befolyást. Azt szeretnénk, hogy bármely változást teljesen meg tudjunk szakítani, illetve bármikor végre tudjunk hajtani változásokat egyszerűen programozható módon. Ezt a CodeMirror ehhez kapcsolódó eseményeire való feliratkozásokkal és azok megfelelő kezelésével tudjuk megtenni. Ezek segítségével minden változást megszakítunk, összegyűjtjük a megszakított változtatás későbbi végrehajtásához szükséges adatokat, és azokkal kiváltunk egy saját eseményt. Erre az eseményre feliratkozva egyszerűen, egységes módon meg tudjuk szakítani a szerkesztésre irányuló eseményeket, vagy tovább tudjuk engedni azokat végrehajtásra, vagy eltárolhatjuk a kapott adatokat a változás későbbi végrehajtásához. Amennyiben nem szakítjuk meg az eseményt, a változás végrehajtódik. A támogatott változások a következők:
+				\begin{itemize}
+					\item Kijelölés változás: a mutatóeszközökkel (például egérrel) és érintőképernyővel végzett kijelölés változások tartoznak ide. Ennek a változásnak a megszakítása nem támogatott az eredeti eseményben, ezért az általunk kiváltott eseményben láthatatlanul visszaállítjuk a kijelölést az előző állapotra. 
+					\item Tartalom változás: ide tartoznak a billentyűleütésekből következő tartalom változások, illetve a kivágás és beillesztés. Abban az esetben, ha egyszerre több kijelölés van a tartalom változás idejében, akkor az eredeti eseményben minden kijelölésben történő változásról külön eseményt kapunk. A saját eseményben ezeket összevonjuk, csak egy eseményt váltunk ki. 
+					\item Billentyűparancs: az olyan, billentyűzettel bevihető parancsok tartoznak ide, mint előre- és visszavonás, kódformázási és kurzor mozgatási parancsok. Billentyű leütésekor ellenőrizzük, hogy egy billentyűparancshoz kapcsolódó billentyűkombináció lett-e leütve, ekkor figyelembe vesszük a beépített, illetve az általunk hozzáadott kombinációkat is.
+				\end{itemize}
+				A CodeMirror az alváltozásokról is küld eseményeket, vagyis például a billentyűleütések utáni kijelölés változásokról, vagy a billentyűparancsok utáni tartalom változásokról. A komponensben ezeket összesítjük, a saját eseményben csak a kiváltó eseménnyel foglalkozunk a változások egységes, egyszerű kezelése érdekében.
+
 			TODO (leírásuk, működésük, hibalehetőségek)
 			
 			\subsection{Felhasznált technológiák}
