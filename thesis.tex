@@ -44,7 +44,17 @@
 		TODO (minden funkció leírása képernyőképekkel, külön regisztrált és nem regisztrált felhasználóra, külön helyes és hibás használatra)
 		
 		\section{Szoftverfejlesztési módszerek}
-		TODO (tesztvezérelt fejlesztés, páros programozás bemutatása)
+		Az alkalmazás által feladatmegoldáskor támogatott szoftverfejlesztési módszerek a következők:
+		\subsubsection{Tesztvezérelt fejlesztés}
+			A tesztvezérelt fejlesztés (TDD) \cite{tdd} egy szoftverfejlesztési technika, amely a szoftver fejlesztésének folyamatát tesztek írásával irányítja. A módszert Kent Beck fejlesztette ki a 90-es évek végén. Alkalmazásához három egyszerű lépést kell sorban, ismételten elvégezni; teszt írása, kód írása és refaktorálás. Teszt írásakor egyetlen új tesztet kell írni. Ennek a tesztnek el kell buknia az akkori implementáción, vagyis olyan tesztet kell írni, amely egy, még nem lefejlesztett funkcionalitás meglétét teszteli. Kód írásakor olyan módon kell kiegészíteni az implementációt, hogy az újonnan írt teszt, illetve a korábbi tesztek is átmenjenek. Refaktoráláskor hozzá szabad nyúlni a tesztekhez is és az implementációhoz is. Ezt olyan módon kell tenni, hogy nem változtatunk az implementáció, illetve a tesztek működésén. A kód olvashatóságának és jól strukturáltságának fenntartására szolgál ez a lépés.
+			
+			Ennek a módszernek előnye, hogy a kódunk jelenlegi működése garantálva lesz és továbbfejlesztéskor hamar kiderül, ha egy adott változtatás elront egy meglévő funkcionalitást. További előny, hogy teszt írásakor eszünkbe juthat olyan eset is, amely nem jutna eszünkbe akkor, ha először az implementációt írnánk meg, így lehetséges, hogy egy több esetet lefedő, jobban működő programot kapunk eredményül.
+
+		\subsubsection{Páros programozás}
+			A páros programozás \cite{pairprogramming} egy olyan tevékenység, amely során két ember dolgozik ugyanannak a programozási feladatnak a megoldásán, jellemzően ugyanazon a számítógépen. Ez egy nagyon kollaboratív módja a programozásnak, sok kommunikációt igényel. A pár tagjai nem csak magát a programozást csinálhatják együtt, hanem sok esetben együtt tervezik meg a munkát is, illetve munka közben megbeszélik ötleteiket a jobb megoldás érdekében. Sokféle páros programozási stílus létezik. A legegyszerűbb, strukturálatlan stílusban nincsenek szabályok, a pár tagjai a munka során megbeszélik, hogy éppen kinél legyen a billentyűzet. Az összetettebb stílusok közé tartozik például a "driver-navigator" és a "ping pong".
+
+		\subsubsection{Ping pong}
+			A ping pong \cite{pairprogramming} egy páros programozási stílus. Egyesíti a tesztvezérelt fejlesztés és a páros programozás elemeit. Első lépésben a pár egyik tagja ír egy új, elbukó tesztet. Második lépésként a pár másik tagja kiegészíti az implementációt úgy, hogy kielégítse az új tesztet is, azután refaktorálhatja a kódokat ha szeretné, végül pedig ír egy új, elbukó tesztet. Ezután a pár első tagja ismét megcsinál egy kód-refaktor-teszt lépéssorozatot, és így tovább.
 
 	\chapter{Fejlesztői dokumentáció}
 
@@ -99,7 +109,7 @@
 				\subsubsection{MongoDB}
 					A MongoDB \cite{mongodb} egy nyílt forráskódú, általános célú, dokumentum alapú elosztott adatbázis szoftver. Elérhető hosztolható változatban, illetve felhőben futó változatban is. Hivatalosan több mint 10 programozási nyelvet támogat, egyszerűen megtanulható, de minden adottsága megvan komplex követelmények teljesítéséhez. Az adatokat rugalmas, JSON-szerű dokumentumokban tárolja, a dokumentumok modellje az alkalmazások kódjában lévő objektumokra illeszkedik, ezért könnyű vele dolgozni.
 
-			TODO (mit tud, mire és hogyan használom: TSLint, Ubuntu, Java, JavaScript, JUnit, Jasmine, Babel, Core.js, WebSocket, Socket.io, Passport, JWT, Node-cache)
+			TODO (mit tud, mire és hogyan használom: TSLint, Ubuntu, Java, JavaScript, JUnit, Jasmine, Babel, Core.js, WebSocket, Socket.io, Passport, JWT)
 			
 			\subsection{Kód felépítése}
 			TODO (mappaszerkezet, rétegek)
@@ -146,7 +156,7 @@
 				\subsubsection{Express}
 					Az Express \cite{express} egy nyílt forráskódú, minimalista keretrendszer szerveroldali Node.js alkalmazások építésére, amely a Node.js beépített HTTP moduljára épül. Nagyon rugalmasan, sokféleképpen használható, nem írja elő, hogy hogyan kell felépíteni, strukturálni a vele írt alkalmazásokat.
 
-			TODO (mit tud, mire és hogy használom: Redux, CSS, PrimeNG)
+			TODO (mit tud, mire és hogy használom: PrimeNG)
 			
 			\subsection{Kód felépítése}
 			TODO (komponensdiagram, mappaszerkezet, rétegek)
@@ -504,6 +514,12 @@
 
 		\addcontentsline{toc}{chapter}{Irodalomjegyzék}
 
+		\bibitem{tdd}
+			Martin Fowler: Test Driven Development (2020.05.21.)
+			\\\url{https://martinfowler.com/bliki/TestDrivenDevelopment.html}
+		\bibitem{pairprogramming}
+			Birgitta Böckeler, Nina Siessegger: On Pair Programming (2020.05.21.)
+			\\\url{https://martinfowler.com/articles/on-pair-programming.html}
 		\bibitem{containers}
 			Stephen Guyton: Containers \& Containerization – Pros and Cons (2019.12.10.)
 			\\\url{https://spin.atomicobject.com/2019/05/24/containerization-pros-cons}
