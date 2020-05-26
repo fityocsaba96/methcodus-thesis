@@ -115,7 +115,37 @@
 					A Solution modellben találhatóak a feladatok megoldásai. Minden megoldáshoz hozzátartozik a megoldás dátuma, a megoldó felhasználó azonosítója, a megoldott feladat azonosítója, a megoldáskor használt programozási nyelv és szoftverfejlesztési módszer, illetve ezeken kívül még itt található a megoldás forráskódja is. Opcionálisan eltároljuk a megoldó felhasználó párjának azonosítóját is, amennyiben páros programozással vagy ping pong módszerrel lett megoldva a feladat.
 			
 			\subsection{Végpontok}
-			TODO (leírásuk, működésük, kérés és válasz tartalma, hibalehetőségek)
+				A HTTP végpontok biztosítják a kliens alkalmazás számára a szerver funkcionalitások nagy részéhez való hozzáférést. A végpontokon a kommunikáció JSON formátumban történik, mind a kérések, mind a válaszok esetében. A regisztrációhoz és a bejelentkezéshez kapcsolódó végpontokon kívül minden végpont használatához kötelező egy érvényes JWT tokent mellékelni a megfelelő HTTP fejlécben, ellenkező esetben HTTP 401 (Unauthorized) hibakóddal válaszolunk. A kérésekben érkező adatokat minden esetben validáljuk, és amennyiben azok nem felelnek meg követelményeinknek, HTTP 400 (Bad Gateway) hibakóddal válaszolunk és válaszunkban elküldjük a kliens számára megjelenítendő összes, validációhoz kapcsolódó hibaüzenetet. Annak érdekében, hogy ne kerüljenek be illetéktelen adatok a rendszerbe és ne kerüljenek ki a rendszerből érzékeny adatok illetéktelen kezekbe, a kérések feldolgozása előtt abból minden olyan adatok eltávolítunk, amire nem számítunk, illetve a válaszokban csak olyan adatokat küldünk el, amelyekre feltétlenül szükség van.
+
+				\subsubsection{POST /auth/login (bejelentkezés)}
+					Ha a kapott felhasználónév létezik és a jelszó megfelel az adatbázisban tárolt, hashelt jelszónak, generálunk a felhasználónak egy JWT tokent és azzal válaszolunk.
+				
+				\subsubsection{POST /users (regisztráció)}
+					Amennyiben a kapott adatok érvényesek, például nem foglalt a felhasználónév, beszúrjuk a felhasználót az adatbázisba, jelszavát hasheljük a bcrypt algoritmussal.
+				
+				\subsubsection{PUT /users/me (felhasználó adatainak változtatása)}
+					Módosítjuk az adatbázisban a felhasználó adatait a kérésben kapott, validált adatokra, illetve a jelszót szintén hasheljük.
+				
+				\subsubsection{GET /exercises/me (felhasználó feladatainak listázása)}
+					Válaszolunk az összes, a felhasználó által létrehozott feladat adataival.
+				
+				\subsubsection{GET /exercises (összes feladat listázása)}
+					Válaszolunk az összes létrehozott feladat adataival, beleértve a létrehozó felhasználók neveit.
+				
+				\subsubsection{POST /exercises (feladat létrehozása)}
+					Validáljuk a kapott adatokat. Minden teszteset felépítésének meg kell felelnie egy jól meghatározott struktúrának. Figyelünk arra, hogy csak támogatott összehasonlító műveleteket, paraméter és elvárt érték típusokat fogadjunk el. A paramétereknek és az elvárt értéknek az értékét a típusának megfelelő módon validáljuk, azaz például \texttt{integer} típusnál nem engedjük a tizedesvesszőt, míg \texttt{double} esetében igen. Ha nem találtunk hibát az érkezett adatokban, beszúrjuk az adatbázisba a feladatot.
+				
+				\subsubsection{GET /exercises/:id (feladat lekérése)}
+					Lekérdezzük az adatbázisból a megadott azonosítóval rendelkező feladatot. Válaszolunk az így kapott adatokkal, ha a \texttt{includeTestCases} URL paraméter értéke \texttt{true}, akkor a tesztesetek leírásait is tartalmazni fogja a válasz.
+				
+				\subsubsection{GET /solutions/me (felhasználó megoldásainak listázása)}
+					Válaszolunk a felhasználó által beküldött megoldások adataival, a válasz tartalmazza a feladat nevét is és ha pár segítségével történt a megoldás, az ő nevét is.
+				
+				\subsubsection{POST /solutions (megoldás tesztelése vagy beküldése)}
+					Amennyiben a kapott adatok érvényesek, lekérjük az adatbázisból a megadott, tesztelendő feladathoz tartozó beépített teszteseteket. Ezeket a teszteseteket, illetve a kapott függvénymeghívási kódot felhasználva lefuttatjuk a tesztelést a megoldáson a kapott programozási nyelv szerinti tesztelő rendszer külön folyamatként történő lefuttatásával. Ezután megkapjuk a tesztek eredményeit vagy a tesztelés meghiúsulásának okát. Ha szoftverfejlesztési módszerként tesztvezérelt fejlesztést vagy ping pong módszert használtunk, hasonló módon lefuttatjuk a tesztelést a tesztelő rendszerben a kapott tesztkód használatával is. Abban az esetben, ha a \texttt{testOnly} URL paraméter értéke \texttt{true}, válaszban elküldjük a tesztelések eredményeit. Ellenkező esetben megpróbáljuk beküldeni a megoldást. Ehhez először leellenőrizzük, hogy nem volt hiba a tesztek futtatásában és az összes lefuttatott teszt átment. Ha ezek nem teljesülnek, nem illesszük be a megoldást és a tesztelések eredményeivel válaszolunk. Ellenkező esetben viszont a kapott adatokat felhasználva beillesztjük a megoldást az adatbázisba. Abban az esetben, ha páros programozás vagy ping pong módszer segítségével oldottuk meg a feladatot, a párhoz is beszúrjuk a megoldást.
+				
+				\subsubsection{GET /pair-programming-requests/me (felhasználó páros programozás felkérésének lekérése)}
+					Lekérdezzük, hogy a felhasználónak van-e jelenleg páros programozás felkérése. Amennyiben van, azzal válaszolunk.
 			
 			\subsection{WebSocket üzenetek}
 			TODO (leírásuk, működésük, oda- vissza üzenetek tartalma, hibalehetőségek)
