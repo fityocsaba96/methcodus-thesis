@@ -50,12 +50,11 @@
 					\item Microsoft Edge (79 vagy újabb verzió)
 					\item Mozilla Firefox (69 vagy újabb verzió)
 				\end{itemize}
-			TODO (biztos hogy ezek?)
-		
+
 			Az alkalmazás a \url{https://methcodus-client.herokuapp.com} címen érhető el. A használathoz egy támogatott böngészőre van szükség. Csak angol nyelv érhető el, ezért szükség van minimális angol nyelvtudásra is, továbbá feladatok megoldásához elengedhetetlen minimális programozói tudás.
 		
 		\section{Alkalmazás funkciói}
-		TODO (minden funkció leírása képernyőképekkel, külön regisztrált és nem regisztrált felhasználóra, külön helyes és hibás használatra)
+		TODO (minden funkció leírása, képernyőképek, helyes és hibás használat)
 		
 		\section{Szoftverfejlesztési módszerek}
 		Az alkalmazás által feladatmegoldáskor támogatott szoftverfejlesztési módszerek a következők:
@@ -80,9 +79,6 @@
 			\subsection{Használati esetek}
 			TODO (használati eset diagram)
 			
-			\subsection{Felület terv}
-			TODO (mockupok a felületről?)
-			
 			\subsection{Architektúra terv}
 				A specifikációban szereplő igényeinket kiválóan kielégíti egy webes alkalmazás, amelynek architektúrája 3 komponensből áll. Az architektúra tartalmaz egy adatbázist, egy kiszolgálót, amely a szerver alkalmazást működteti, illetve egy másik kiszolgálót, amely a kliens alkalmazásért felel. A szerver alkalmazás egy REST elvekre épített webes API, ami az adatbázis felhasználásával megvalósítja az alkalmazás szerveroldali felületét. A kliens alkalmazás egy SPA, ami HTTP kéréseken keresztül fog kommunikálni a szerver alkalmazással. A kliens alkalmazást alkotó statikus fájlok elérését egy külön kiszolgáló biztosítja. Ezek a komponensek egy-egy Docker konténerben vannak izolálva egymástól és a külvilágtól.
 				
@@ -91,7 +87,6 @@
 					\includegraphics[scale=0.3333]{architecture-diagram}
 					\caption{Az alkalmazás architektúra terve}
 				\end{figure}
-			TODO (rövid leírás a technikai megvalósításról)
 		
 		\section{Szerver architektúra}
 
@@ -235,13 +230,10 @@
 				\subsubsection{Express}
 					Az Express \cite{express} egy nyílt forráskódú, minimalista keretrendszer szerveroldali Node.js alkalmazások építésére, amely a Node.js beépített HTTP moduljára épül. Nagyon rugalmasan, sokféleképpen használható, nem írja elő, hogy hogyan kell felépíteni, strukturálni a vele írt alkalmazásokat.
 
-			TODO (mit tud, mire és hogy használom: PrimeNG)
+			TODO (PrimeNG-ről írni)
 			
 			\subsection{Kód felépítése}
-			TODO (komponensdiagram, mappaszerkezet, rétegek)
-		
-		\section{Komponensek közti kommunikáció}
-		TODO (szekvenciadiagram egy funkcióra, opcionális)
+			TODO (mappaszerkezet, rétegek)
 
 		\section{A tesztelő rendszer működése}
 			Az alkalmazás leglényegesebb része a tesztelő rendszer. A felhasználók által megoldandó programozási feladatok megoldása közben, illetve azok beküldésekor nyújt támpontot számukra azáltal, hogy kiértékeli a megoldásukat és egységes formájú jelentést készít annak állapotáról. Akár tesztvezérelt fejlesztéssel oldja meg a felhasználó a feladatot, akár nem, ez a rendszer felel a megoldás teszteléséért. A tesztelő rendszer a szerveroldalon található, HTTP kapcsolaton keresztül folyik a kommunikáció. Megkapjuk a teszteléshez szükséges adatokat, elvégezzük a teszteket, utána pedig válaszolunk a teszteredményekkel.
@@ -590,6 +582,7 @@
 			\end{itemize}
 
 	\begin{thebibliography}{99}
+		\setlength{\itemsep}{0.25em}
 
 		\addcontentsline{toc}{chapter}{Irodalomjegyzék}
 
@@ -599,33 +592,6 @@
 		\bibitem{pairprogramming}
 			Birgitta Böckeler, Nina Siessegger: On Pair Programming (2020.05.21.)
 			\\\url{https://martinfowler.com/articles/on-pair-programming.html}
-		\bibitem{containers}
-			Stephen Guyton: Containers \& Containerization – Pros and Cons (2019.12.10.)
-			\\\url{https://spin.atomicobject.com/2019/05/24/containerization-pros-cons}
-		\bibitem{docker}
-			IBM: What is Docker? (2019.12.10.)
-			\\\url{https://www.ibm.com/cloud/learn/docker}
-		\bibitem{npm}
-			Nodejs.dev: An introduction to the npm package manager (2019.12.10.)
-			\\\url{https://nodejs.dev/an-introduction-to-the-npm-package-manager}
-		\bibitem{git}
-			Atlassian: What is Git (2019.12.10.)
-			\\\url{https://www.atlassian.com/git/tutorials/what-is-git}
-		\bibitem{ci}
-			Max Rehkopf: What is Continuous Integration (2019.12.10.)
-			\\\url{https://www.atlassian.com/continuous-delivery/continuous-integration}
-		\bibitem{codeship}
-			Codeship (2019.12.10.)
-			\\\url{https://codeship.com}
-		\bibitem{cd}
-			Martin Fowler: Continuous Delivery (2020.04.09.)
-			\\\url{https://martinfowler.com/bliki/ContinuousDelivery.html}
-		\bibitem{heroku}
-			Heroku (2020.04.09.)
-			\\\url{https://www.heroku.com/platform}
-		\bibitem{unittesting}
-			Software Testing Fundamentals: Unit Testing (2020.04.17.)
-			\\\url{http://softwaretestingfundamentals.com/unit-testing}
 		\bibitem{nodejs}
 			Nodejs.dev: Introduction to Node.js (2020.04.18.)
 			\\\url{https://nodejs.dev}
@@ -659,8 +625,35 @@
 		\bibitem{express}
 			freeCodeCamp.org: ExpressJS (2020.04.18.)
 			\\\url{https://guide.freecodecamp.org/nodejs/express}
+		\bibitem{containers}
+			Stephen Guyton: Containers \& Containerization – Pros and Cons (2019.12.10.)
+			\\\url{https://spin.atomicobject.com/2019/05/24/containerization-pros-cons}
+		\bibitem{docker}
+			IBM: What is Docker? (2019.12.10.)
+			\\\url{https://www.ibm.com/cloud/learn/docker}
+		\bibitem{npm}
+			Nodejs.dev: An introduction to the npm package manager (2019.12.10.)
+			\\\url{https://nodejs.dev/an-introduction-to-the-npm-package-manager}
+		\bibitem{git}
+			Atlassian: What is Git (2019.12.10.)
+			\\\url{https://www.atlassian.com/git/tutorials/what-is-git}
+		\bibitem{ci}
+			Max Rehkopf: What is Continuous Integration (2019.12.10.)
+			\\\url{https://www.atlassian.com/continuous-delivery/continuous-integration}
+		\bibitem{codeship}
+			Codeship (2019.12.10.)
+			\\\url{https://codeship.com}
+		\bibitem{cd}
+			Martin Fowler: Continuous Delivery (2020.04.09.)
+			\\\url{https://martinfowler.com/bliki/ContinuousDelivery.html}
+		\bibitem{heroku}
+			Heroku (2020.04.09.)
+			\\\url{https://www.heroku.com/platform}
+		\bibitem{unittesting}
+			Software Testing Fundamentals: Unit Testing (2020.04.17.)
+			\\\url{http://softwaretestingfundamentals.com/unit-testing}
 		\bibitem{test}
-			TODO (kitölteni) (2020.04.06.)
+			TODO (kitölteni) (2020.01.01.)
 			\\\url{http://example.com}
 
 	\end{thebibliography}
