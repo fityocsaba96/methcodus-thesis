@@ -115,7 +115,7 @@
 					A Solution modellben találhatóak a feladatok megoldásai. Minden megoldáshoz hozzátartozik a megoldás dátuma, a megoldó felhasználó azonosítója, a megoldott feladat azonosítója, a megoldáskor használt programozási nyelv és szoftverfejlesztési módszer, illetve ezeken kívül még itt található a megoldás forráskódja is. Opcionálisan eltároljuk a megoldó felhasználó párjának azonosítóját is, amennyiben páros programozással vagy ping pong módszerrel lett megoldva a feladat.
 			
 			\subsection{Végpontok}
-				A HTTP végpontok biztosítják a kliens alkalmazás számára a szerver funkcionalitások nagy részéhez való hozzáférést. A végpontokon a kommunikáció JSON formátumban történik, mind a kérések, mind a válaszok esetében. A regisztrációhoz és a bejelentkezéshez kapcsolódó végpontokon kívül minden végpont használatához kötelező egy érvényes JWT tokent mellékelni a megfelelő HTTP fejlécben, ellenkező esetben HTTP 401 (Unauthorized) hibakóddal válaszolunk. A kérésekben érkező adatokat minden esetben validáljuk, és amennyiben azok nem felelnek meg követelményeinknek, HTTP 400 (Bad Gateway) hibakóddal válaszolunk és válaszunkban elküldjük a kliens számára megjelenítendő összes, validációhoz kapcsolódó hibaüzenetet. Annak érdekében, hogy ne kerüljenek be illetéktelen adatok a rendszerbe és ne kerüljenek ki a rendszerből érzékeny adatok illetéktelen kezekbe, a kérések feldolgozása előtt abból minden olyan adatok eltávolítunk, amire nem számítunk, illetve a válaszokban csak olyan adatokat küldünk el, amelyekre feltétlenül szükség van.
+				A HTTP végpontok biztosítják a kliens alkalmazás számára a szerver funkcionalitások nagy részéhez való hozzáférést. A végpontokon a kommunikáció JSON formátumban történik, mind a kérések, mind a válaszok esetében. A regisztrációhoz és a bejelentkezéshez kapcsolódó végpontokon kívül minden végpont használatához kötelező egy érvényes JWT tokent mellékelni a megfelelő HTTP fejlécben, ellenkező esetben HTTP 401 (Unauthorized) hibakóddal válaszolunk. A kérésekben érkező adatokat minden esetben validáljuk, és amennyiben azok nem felelnek meg követelményeinknek, HTTP 400 (Bad Gateway) hibakóddal válaszolunk és válaszunkban elküldjük a kliens számára megjelenítendő összes, validációhoz kapcsolódó hibaüzenetet. Annak érdekében, hogy ne kerüljenek be illetéktelen adatok a rendszerbe és ne kerüljenek ki a rendszerből érzékeny adatok illetéktelen kezekbe, a kérések feldolgozása előtt abból minden olyan adatok eltávolítunk, amire nem számítunk, illetve a válaszokban csak olyan adatokat küldünk el, amelyekre feltétlenül szükség van. Az alábbi végpontokat tartalmazza a szerver:
 
 				\subsubsection{POST /auth/login (bejelentkezés)}
 					Ha a kapott felhasználónév létezik és a jelszó megfelel az adatbázisban tárolt, hashelt jelszónak, generálunk a felhasználónak egy JWT tokent és azzal válaszolunk.
@@ -148,8 +148,26 @@
 					Lekérdezzük, hogy a felhasználónak van-e jelenleg páros programozás felkérése. Amennyiben van, azzal válaszolunk.
 			
 			\subsection{WebSocket üzenetek}
-			TODO (leírásuk, működésük, oda- vissza üzenetek tartalma, hibalehetőségek)
-			
+				A WebSocket üzenetek biztosítják a kliens alkalmazás számára a páros programozáshoz kapcsolódó funkcionalitásokhoz való hozzáférést. Az üzenetekben a kommunikáció JSON formátumban történik. Az üzenetek használata előtt kötelező egy érvényes JWT tokent küldenünk a szervernek, ellenkező esetben nem fogadja üzeneteinket a szerver. A WebSocket üzenetek küldésére és fogadására a Socket.IO JavaScript könyvtárat használjuk, az üzenetek a \texttt{pair-programming} namespacebe tartoznak. A következő üzeneteket kaphatja a szerver:
+
+				\subsubsection{authenticate (felhasználó authentikál)}
+					Authentikáljuk a felhasználót a kapott JWT token használatával és válaszban tudatjuk vele a folyamat sikerességét.
+
+				\subsubsection{add-pair-programming-request (párprogramozás felkérés hozzáadása)}
+					Leellenőrizzük, hogy létezik-e felhasználó a kapott felhasználónévvel, ha nem, akkor hibával válaszolunk. Egyéb esetben beszúrjuk a kapott felkérést a felkérésekhez a felkért felhasználónak címezve és válaszolunk a felkért felhasználó azonosítójával. A beszúrt felkérés tartalmazni fogja a felkérő felhasználó Socket objektumát is. A felkéréseket nem adatbázisban tároljuk, hanem egy memóriabeli objektumban. Ennek oka, hogy a felkérések maximum 5 percig vannak érvényben, ezután automatikusan törlődnek.
+
+				\subsubsection{pair-connected (pár becsatlakozott)}
+					Töröljük a felhasználó saját páros programozás felkérését. Elmentjük a páros mindkét tagjának Socket objektumában a páros másik tagjának Socket objektumát, ezáltal a páros tagjai üzeneteket fognak tudni küldeni egymásnak. A páros mindkét tagjának üzenjük, hogy a pár csatlakozott.
+
+				\subsubsection{pair-edited-code (pár szerkesztette a kódot)}
+					Ha páros programozás van folyamatban, akkor a páros mindkét tagjának elküldjük üzenetben a kapott kódváltozásokat, ping pong módszer esetén pedig csak a párnak küldjük el.
+
+				\subsubsection{forward-to-pair (továbbítás a párnak)}
+					Változatlanul elküldjük a párnak üzenetben a kapott üzenetet. Ezt arra használjuk, hogy az egyik tagnál történt műveletekre reagálni tudjon a másik tag kliense, például kód tesztelés vagy beküldés indításakor vagy befejeződésekor.
+
+				\subsubsection{disconnect (felhasználó lecsatlakozott)}
+					Amennyiben a pár még csatlakozva van, üzenjük neki, hogy a felhasználó lecsatlakozott.
+
 			\subsection{Felhasznált technológiák}				
 				\subsubsection{Node.js}
 					A Node.js \cite{nodejs} egy nyílt forráskódú, platformfüggetlen JavaScript futtatókörnyezet. Node.js a V8 JavaScript motort használja, ami a Google Chrome magja, ezért nagyon jó teljesítménnyel tud működni. Minden Node.js alkalmazás egy folyamatként, egy szálon fut. Nem hoz létre új szálakat az új kérések miatt, ehelyett aszinkron I/O műveleteket kínál a szabványos könyvtárában, amik meggátolják, hogy a JavaScript kódok blokkolják a program futását. Amikor a Node.js egy I/O műveletet hajt végre, mint például olvasás a hálózatról, egy adatbázisból vagy a fájlrendszerből, a szál blokkolása és CPU ciklusok várakozással való pazarlása helyett akkor folytatja a műveletet, amikor visszakapja a választ. Node.js-ben az új ECMAScript szabványok minden probléma nélkül használhatóak, mert a szerveroldalon való futtatás miatt nem kell arra várni, hogy a felhasználók frissítsék a böngészőjüket, rajtunk múlik hogy a szabvány melyik verzióját szeretnénk használni.
