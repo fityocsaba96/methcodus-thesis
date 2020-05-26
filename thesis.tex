@@ -96,7 +96,11 @@
 		\section{Szerver architektúra}
 
 			\subsection{Authentikáció}
-			TODO (annak folyamata)
+				Az alkalmazás authentikációja fontos feladat, mert különbséget kell tennünk belépett és nem belépett felhasználó között, illetve néhány művelet esetében tudnunk kell bizonyos adatokat a bejelentkezett felhasználóról. A feladatot megnehezíti, hogy a szerver REST elveken alapul, amelynek egyik alapelve hogy állapotmentes legyen, azaz nem tárolhatunk el a szerveren információkat a bejelentkezett felhasználókról. Az authentikációt a JWT technológia segítségével oldjuk meg, a HTTP végpontokat és a WebSocket üzeneteket is authentikáljuk. A felhasználó egyértelmű azonosításának érdekében a felhasználó azonosítóját és felhasználónevét használjuk fel a token generálásához. A tokenek aláírásához szükséges titkos kulcsot környezeti változóként tároljuk. Alkalmazásunkban a JWT tokenek lejárati idejét nem ellenőrizzük, azok korlátlan ideig használhatóak.
+
+				A felhasználó authentikációjához szükséges JWT tokent a bejelentkezéshez használt HTTP végpont segítségével szolgáltatjuk a felhasználóhoz. Amennyiben helyes felhasználónév és jelszó párost kapunk ezen a végponton, generálunk egy, a felhasználó számára készült JWT tokent. Ezt a tokent a HTTP válasz részeként elküldjük a kliensnek, aki ezután ezt használhatja a védett kérések esetében. Minden ilyen végpont meghívásakor csatolnia kell a tokent az \texttt{Authorization} HTTP fejlécbe a Bearer authentikációs séma alapján. A szerver kiolvassa ezt az adatot a védett végpontoknál, ellenőrzi a tokent, és csak akkor engedélyezi a művelet végrehajtását, ha a kiolvasott token érvényes.
+
+				WebSocket üzenetek küldésekor is szükség van authentikációra. A WebSocket kapcsolat létrejötte után a szervernek küldenünk kell egy \texttt{authenticate} üzenetet, amelybe beleillesszük a már korábban létrehozott JWT tokenünket a Bearer authentikációs séma alapján. A szerver ellenőrzi a kapott tokent, és amennyiben az érvényes, megjegyzi, hogy az adott kliens már authentikálva van és ezt tudatja is vele. Ezután ha a klienstől üzenet érkezik, látja a szerver, hogy a kliens már authentikálva lett, ezért végrehajtja a kért műveletet.
 			
 			\subsection{Adatbázis}
 			TODO (modellek leírása és ábra, kapcsolatok)
