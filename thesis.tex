@@ -123,8 +123,12 @@
 				\subsubsection{MongoDB}
 					A MongoDB \cite{mongodb} egy nyílt forráskódú, általános célú, dokumentum alapú elosztott adatbázis szoftver. Elérhető hosztolható változatban, illetve felhőben futó változatban is. Hivatalosan több mint 10 programozási nyelvet támogat, egyszerűen megtanulható, de minden adottsága megvan komplex követelmények teljesítéséhez. Az adatokat rugalmas, JSON-szerű dokumentumokban tárolja, a dokumentumok modellje az alkalmazások kódjában lévő objektumokra illeszkedik, ezért könnyű vele dolgozni.
 
-			TODO (mit tud, mire és hogyan használom: TSLint, Ubuntu, Java, JavaScript, JUnit, Jasmine, Babel, Core.js, WebSocket, Socket.io, Passport, JWT)
+				\subsubsection{JWT}
+					A JWT (JSON Web Token) \cite{jwt} egy nyílt sztenderd, amely egy módszert definiál JSON objektum alapú információ biztonságos továbbítására. Ezt az információt meg lehet erősíteni, ezáltal meg lehet bízni benne, mert digitálisan alá van írva. Egy titkos kulccsal, vagy egy publikus/privát kulcs párossal lehet JWT-ket aláírni. Leggyakrabban authorizációra vagy információcserére szoktak JWT-t használni. A JWT három részből épül fel: header, payload és signature. Header tartalmazza a token típusát és az aláírásra használt algoritmus nevét. A payload rész bármilyen adatot tartalmazhat, authorizációkor érdemes a felhasználó beazonosítására alkalmas adatokat tartalmaznia, illetve itt található a token lejárati ideje is. A signature részt az enkódolt header és payload részek, a titkos kulcs és az algoritmus segítségével tudjuk kiszámolni. Az említett három részt Base64URL enkódoljuk és pontokkal elválasztva konkatenáljuk, így jön létre a végeredmény.
 			
+				\subsubsection{WebSocket}
+					A WebSocket \cite{websocket} egy internetes kommunikációs protokoll, amely kétirányú kommunikációt valósít meg a kliens és a szerver között egyetlen TCP kapcsolaton keresztül. Segítségével nagymértékben csökkenthető a hálózati forgalom és a késleltetés a kétirányú kommunikációt szimuláló, HTTP polling alapú megoldásokhoz képest.
+
 			\subsection{Kód felépítése}
 			TODO (mappaszerkezet, rétegek)
 		
@@ -576,6 +580,12 @@
 		\bibitem{mongodb}
 			MongoDB: What Is MongoDB? (2020.04.18.)
 			\\\url{https://www.mongodb.com/what-is-mongodb}
+		\bibitem{jwt}
+			JWT: Introduction to JSON Web Tokens (2020.05.26.)
+			\\\url{https://jwt.io/introduction}
+		\bibitem{websocket}
+			Websocket.org: About HTML5 WebSocket (2020.05.26.)
+			\\\url{https://www.websocket.org/aboutwebsocket.html}
 		\bibitem{angular}
 			Aman Goel: Why should you learn Angular? (2020.04.18.)
 			\\\url{https://hackr.io/blog/why-should-you-learn-angular}
