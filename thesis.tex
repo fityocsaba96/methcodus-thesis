@@ -103,7 +103,16 @@
 				WebSocket üzenetek küldésekor is szükség van authentikációra. A WebSocket kapcsolat létrejötte után a szervernek küldenünk kell egy \texttt{authenticate} üzenetet, amelybe beleillesszük a már korábban létrehozott JWT tokenünket a Bearer authentikációs séma alapján. A szerver ellenőrzi a kapott tokent, és amennyiben az érvényes, megjegyzi, hogy az adott kliens már authentikálva van és ezt tudatja is vele. Ezután ha a klienstől üzenet érkezik, látja a szerver, hogy a kliens már authentikálva lett, ezért végrehajtja a kért műveletet.
 			
 			\subsection{Adatbázis}
-			TODO (modellek leírása és ábra, kapcsolatok)
+				Az alkalmazás működése során adatbázisban tárolom a felhasználók, a feladatok, illetve az azokhoz tartozó megoldások adatait, adatbázisnak MongoDB-t használok. Mindegyik modell rendelkezik egy egyedi azonosítóval. Az adatbázis a következő modelleket tartalmazza:
+
+				\subsubsection{User} 
+					Az User modell tartalmazza a regisztrált felhasználók regisztrációjának dátumát, felhasználónevét, teljes nevét, email címét és jelszavának a bcrypt jelszó hashelő algoritmussal hashelt változatát.
+
+				\subsubsection{Exercise}
+					Az Exercise modell a hozzáadott programozási feladatok adatait tartalmazza. Számon tartja a feladatok létrehozási dátumát, a létrehozó felhasználó azonosítóját, a feladat nevét, leírását és a beépített, egységes formátumú teszteseteket. Minden teszteset tartalmaz szöveges leírást, a tesztelendő függvény meghívásához szükséges paramétereket, az összehasonlító művelet nevét és az elvárt értéket. A paramétereknél és az elvárt értéknél számon tartjuk azok típusát és értékét is.
+
+				\subsubsection{Solution}
+					A Solution modellben találhatóak a feladatok megoldásai. Minden megoldáshoz hozzátartozik a megoldás dátuma, a megoldó felhasználó azonosítója, a megoldott feladat azonosítója, a megoldáskor használt programozási nyelv és szoftverfejlesztési módszer, illetve ezeken kívül még itt található a megoldás forráskódja is. Opcionálisan eltároljuk a megoldó felhasználó párjának azonosítóját is, amennyiben páros programozással vagy ping pong módszerrel lett megoldva a feladat.
 			
 			\subsection{Végpontok}
 			TODO (leírásuk, működésük, kérés és válasz tartalma, hibalehetőségek)
