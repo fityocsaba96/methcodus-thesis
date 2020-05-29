@@ -189,7 +189,12 @@
 		\section{Kliens architektúra}
 
 			\subsection{Authentikáció}
-			TODO (annak folyamata)
+				A kliens alkalmazásnak meg kell felelnie a szerver által támasztott authentikációs követelményeknek, vagyis JWT tokennel kell authentikálnia magát. Ennek érdekében a következőket alkalmazzuk:
+				\begin{itemize}
+					\item Sikeres bejelentkezéskor kapunk a szervertől egy JWT tokent. Ezt eltároljuk a böngésző által nyújtott \texttt{localStorage} objektumban, ehhez később bármikor hozzáférhetünk.
+					\item Amikor a szerver bármelyik végpontját meghívjuk, akkor amennyiben van elmentett JWT token a böngészőben, kiolvassuk azt és hozzácsatoljuk a kéréshez elküldés előtt. Erre az \texttt{Authorization} HTTP fejlécet használjuk, a szerver itt fogja keresni a tokent.
+					\item Kijelentkezéskor töröljük a tokent a \texttt{localStorage}-ból, ezután nem fogjuk tudni használni a szerver végpontjait.
+				\end{itemize}
 			
 			\subsection{Képernyők}
 			TODO (leírásuk, komponenseik)
