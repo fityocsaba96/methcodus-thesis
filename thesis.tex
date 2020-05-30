@@ -147,7 +147,7 @@
 					Authentikáljuk a felhasználót a kapott JWT token használatával és válaszban tudatjuk vele a folyamat sikerességét.
 
 				\subsubsection{add-pair-programming-request (párprogramozás felkérés hozzáadása)}
-					Leellenőrizzük, hogy létezik-e felhasználó a kapott felhasználónévvel, ha nem, akkor hibával válaszolunk. Egyéb esetben beszúrjuk a kapott felkérést a felkérésekhez a felkért felhasználónak címezve és válaszolunk a felkért felhasználó azonosítójával. A beszúrt felkérés tartalmazni fogja a felkérő felhasználó Socket objektumát is. A felkéréseket nem adatbázisban tároljuk, hanem egy memóriabeli objektumban. Ennek oka, hogy a felkérések maximum 5 percig vannak érvényben, ezután automatikusan törlődnek.
+					Leellenőrizzük, hogy létezik-e felhasználó a kapott felhasználónévvel, illetve hogy nem önmagának próbál-e a felhasználó felkérést küldeni. Ha ezek nem teljesülnek, akkor hibával válaszolunk. Egyéb esetben beszúrjuk a kapott felkérést a felkérésekhez a felkért felhasználónak címezve és válaszolunk a felkért felhasználó azonosítójával. A beszúrt felkérés tartalmazni fogja a felkérő felhasználó Socket objektumát is. A felkéréseket nem adatbázisban tároljuk, hanem egy memóriabeli objektumban. Ennek oka, hogy a felkérések maximum 5 percig vannak érvényben, ezután automatikusan törlődnek.
 
 				\subsubsection{pair-connected (pár becsatlakozott)}
 					Töröljük a felhasználó saját páros programozás felkérését. Elmentjük a páros mindkét tagjának Socket objektumában a páros másik tagjának Socket objektumát, ezáltal a páros tagjai üzeneteket fognak tudni küldeni egymásnak. A páros mindkét tagjának üzenjük, hogy a pár csatlakozott.
