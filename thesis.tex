@@ -228,6 +228,17 @@
 				\end{itemize}
 			
 			\subsection{Komponensek}
+				Komponensek használatával építjük fel az alkalmazást. Az alábbiakban ezek leírása következik.
+				\begin{itemize}
+					\setlength\itemsep{-0.5em}
+					\item A Welcome komponens egy üdvözlőképernyő, ahonnan elérhető a regisztráció és bejelentkezés.
+					\item A Login komponens a bejelentkezés kezeléséért felel. Elküldi a szervernek a kapott bejelentkezési adatokat, elmenti a kapott JWT tokent adott esetben.
+					\item A Register komponens meghívja a regisztrációhoz kapcsolódó végpontot.
+					\item Az Add Exercise komponens felel a feladat hozzáadásáért és a hibák kijelzéséért.
+					\item Az Exercises komponens jeleníti meg a hozzáadott feladatokat és itt van lehetőségünk feladatmegoldást kezdeményezni.
+					\item A Solve Exercise komponensben található a feladat megoldásáért felelős logika. Itt felhasználjuk a Code Editor komponenst olyan módon, hogy páros programozásnál visszavonjuk a szerkesztőben történő változásokat és azokat a megfelelő WebSocket üzenet érkezése esetén hajtjuk végre, így biztosítjuk a felek közti konzisztenciát.
+				\end{itemize}
+
 				\subsubsection{Code Editor}
 					A Code Editor komponens valósítja meg az alkalmazásban használt kódszerkesztőt. A cél egy olyan kódszerkesztő létrehozása, amely nagyban megkönnyíti a különböző szoftverfejlesztési módszerek támogatását. Ezt használjuk fel a feladatok megoldásánál bármely módszer választása esetén, illetve a saját megoldások listázásánál is. A komponens a CodeMirror nevű kódszerkesztőre épül, néhány funkcióját átveszi, néhányat pedig testreszabja az alkalmazás igényeire. Lehetőséget nyújt az alkalmazás által támogatott programozási nyelvek használatára, a szerkesztő kezdeti tartalmának beállítására és jelenlegi tartalmának lekérésére. Kiegészítőket használ fel, amelyekkel például képes keresni, kikommentelni bizonyos sorokat és kiemelni a kijelöléssel egyező részeket a szövegben.
 				
@@ -245,8 +256,6 @@
 						\item Billentyűparancs: az olyan, billentyűzettel bevihető parancsok tartoznak ide, mint előre- és visszavonás, kódformázási és kurzor mozgatási parancsok. Billentyű leütésekor ellenőrizzük, hogy egy billentyűparancshoz kapcsolódó billentyűkombináció lett-e leütve, ekkor figyelembe vesszük a beépített, illetve az általunk hozzáadott kombinációkat is.
 					\end{itemize}
 					A CodeMirror az alváltozásokról is küld eseményeket, vagyis például a billentyűleütések utáni kijelölés változásokról, vagy a billentyűparancsok utáni tartalom változásokról. A komponensben ezeket összesítjük, a saját eseményben csak a kiváltó eseménnyel foglalkozunk a változások egységes, egyszerű kezelése érdekében.
-
-			TODO (leírásuk, működésük, hibalehetőségek)
 			
 			\subsection{Felhasznált technológiák}
 				\subsubsection{Angular}
