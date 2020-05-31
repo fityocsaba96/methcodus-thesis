@@ -52,7 +52,38 @@
 			Az alkalmazás a \url{https://methcodus-client-elte.herokuapp.com} címen érhető el. A használathoz egy támogatott böngészőre van szükség. Csak angol nyelv érhető el, ezért szükség van minimális angol nyelvtudásra is, továbbá feladatok megoldásához elengedhetetlen minimális programozói tudás.
 		
 		\section{Alkalmazás funkciói}
-		TODO (minden funkció leírása, képernyőképek, helyes és hibás használat)
+			\subsection{Regisztráció}
+			Az alkalmazás használatához először regisztrálnia kell abba a leendő felhasználónak. A regisztrációhoz meg kell adnia a kívánt felhasználónevet, a saját nevét, email címét, jelszavát, illetve a jelszó megerősítését. Ezek megadása után a regisztráció gombra kattintva regisztrálhat. Amennyiben sikeres a regisztráció, értesítést kapunk erről és átirányításra kerülünk a bejelentkezés oldalra. Ellenkező esetben hibaüzenetek alapján tájékozódhatunk arról, hogy mely adatokat adtuk meg hibásan.
+
+			\subsection{Bejelentkezés}
+			A bejelentkezéshez szükség van a regisztrációkor megadott felhasználónevünkre és jelszavunkra. Ezeket megadva és a bejelentkezés gombra kattintva tájékoztatást kapunk arról, hogy sikerült-e bejelentkezni. Sikeres belépés esetén át leszünk irányítva a feladatok böngészéséhez.
+
+			\subsection{Kijelentkezés}
+			Amennyiben ki szeretnénk jelentkezni az alkalmazásból, a menüsáv jobb oldalán található lenyíló menün keresztül érhetjük el a kijelentkezést. Ekkor vissza leszünk irányítva a bejelentkező felületre.
+
+			\subsection{Páros programozás felkérés elfogadása}
+			Ha egy másik felhasználó küldött nekünk felkérést páros programozásra, akkor azt a menüsáv jobb oldalán láthatjuk. Itt látszik, hogy ki kért fel minket, milyen programozási nyelven, illetve milyen szoftverfejlesztési módszerrel szeretne programozni. Abban az esetben, ha el szeretnénk fogadni a felkérést, kattintsunk rá. Ekkor betöltődik a feladatmegoldás oldala, ahol automatikusan csatlakozásra kerülünk a feladat megoldásához. Egy páros programozásra való felkérés 5 percig érvényes.
+
+			\subsection{Feladatok böngészése}
+			Ha programozási feladatot szeretnénk megoldani, azt a böngészés oldalról érhetjük el, amelyet a menüsávon lévő logóra kattintva tölthetünk be. Itt megtaláljuk kilistázva az összes hozzáadott feladatot a hozzáadás dátuma szerint rendezve. Bármelyik feladat a rendelkezésünkre áll megoldás szempontjából. Amennyiben egy adott feladat részletes adatait meg szeretnénk nézni, kattintsunk az adott feladat nevére. A lenyíló részben elolvashatjuk a feladathoz mellékelt leírást, illetve hogy melyik felhasználó adta azt hozzá és mikor. Ha el szeretnénk indítani a feladat megoldásának folyamatát, válasszuk ki a lenyíló menüben a használni kívánt programozási nyelvet és szoftverfejlesztési módszert. Ezek után kattintsunk a feladat megoldása gombra, ekkor a feladatmegoldó oldalra kerülünk.
+
+			\subsection{Feladat hozzáadása}
+			Új feladat létrehozásához látogassunk el a feladatok böngészése oldalra. Itt találunk egy gombot, amelyen egy plusz ikon szerepel, erre kattintva kerülünk a feladat hozzáadása oldalra. Egy feladat hozzáadásához meg kell adnunk a leendő feladat nevét, a megoldáshoz szükséges részletes leírást és a teszteseteket. Olyan teszteseteket érdemes kitalálni, amelyek minél több oldalról közelítik meg az adott feladat megoldását. A teszteseteket egy közös, JSON alapú formátumban kell megadni. Ez mindegyik támogatott programozási nyelv esetén működni fog, át lesz alakítva az adott programozási nyelvhez tartozó tesztkörnyezet kódjára, és az lesz lefuttatva. Minden teszteset esetén meg kell adni a teszteset leírását, paramétereinek típusát és értékét, az összehasonlító műveletet és az elvárt értéket és típusát. A tesztesetek formátumához segítség található a felületen. A feladat hozzáadásához kattintsunk az oldal alján található gombra. Ha nem megfelelő formátumban adtunk meg valamit, hibaüzenetet kapunk, különben átirányításra kerülünk a feladatok böngészéséhez.
+
+			\subsection{Feladat megoldása}
+			Bármely szoftverfejlesztési módszer használata esetén megjelenik az oldalon a választott feladat neve, leírása, létrehozó felhasználója, a választott programozási nyelv és szoftverfejlesztési módszer. Ezen kívül látszódnak a feladat beépített teszteseteinek nevei és eredményei, itt tudunk tájékozódni a megoldásunk állapotáról. Itt található egy kódszerkesztő is, ide tudjuk írni a megoldásunkat. Ezeken kívül még itt látható egy szövegmező a függvény meghívási kódjának. Itt az általunk írt megoldó függvény meghívásához szükséges kódot kell megadnunk, ennek a használatával tudja majd a tesztelő rendszer tesztelni a kódunkat. Az oldal alján találhatóak a megoldás tesztelésére, illetve beküldésére használható gombok.
+
+				\subsubsection{Szoftverfejlesztési módszer nélkül}
+				Ebben a módban követnünk kell a megadott feladatleírást a feladat megoldásához. A kódszerkesztő használatával összeállítjuk megoldásunkat, és amikor meg szeretnénk nézni, hogy mennyire felel meg a megoldásunk a feladat létrehozója által támasztott követelményeknek, kattintsunk a tesztelés gombra. Ekkor kiértékelődik a megoldásunk, és tájékozódhatunk arról, hogy mely teszteseteken megy át a megoldásunk, és melyeken nem. Ha nem megy át minden teszteseten, dolgozhatunk tovább rajta. Amennyiben már minden tesztnek megfelel, lehetőségünk van beküldeni a megoldást.
+
+				\subsubsection{Tesztvezérelt fejlesztéssel}
+				Ennél a módnál két kódszerkesztőt kapunk. Egyikben a megoldás kódját írjuk, másikban saját teszteket írunk, ezek mentén oldjuk meg a feladatot. Először csak a tesztkódot tudjuk szerkeszteni, írnunk kell egy olyan tesztesetet, amely nem megy át. Ennek tesztelése után szerkeszthetjük a megoldás kódját. Ekkor úgy kell módosítanunk azt, hogy az kielégítse az új tesztesetünket is. Amennyiben ezt leteszteljük és átmegy a teszteket, refaktorálhatjuk a kódot és a tesztet mielőtt tovább megyünk. Továbblépés után újra tesztet kell hozzáadnunk.
+
+				\subsubsection{Páros programozással}
+				Az oldal betöltésekor előjön egy ablak, amelyben programozás felkérést tudunk küldeni egy másik felhasználónak. A felhasználó nevének beírása és a küldés gombra kattintás után, amennyiben létezik a felhasználó, elküldésre kerül neki a felkérés. Amint elfogadja a felhasználó a felkérést, elindul a megoldás folyamata. Az általunk végzett módosítások végrehajtódnak a másik felhasználónál is, illetve ez fordítva is igaz, egyfolytában szinkronban van a felület.
+
+				\subsubsection{Ping pong módszerrel}
+				Ping pong módszernél szintén előjön a felkérés küldésére vonatkozó ablak, ahol elküldjük azt. Két kódszerkesztő felületet kapunk a tesztvezérelt fejlesztés szabályai szerint. A csatlakozó pár először nem tudja szerkeszteni a kódokat, a felkérő felhasználó pedig a tesztkódot szerkesztheti. Teszt írása után átkerül az irányítás a másik taghoz, aki a megoldás kódot írhatja, ki kell elégítenie a tesztet. Ezután hasonlóan a tesztvezérelt fejlesztéshez, következik a refaktor, illetve a teszt írás szakasza. Ezután ismét a felkérő felhasználóé a szerep.
 		
 		\section{Szoftverfejlesztési módszerek}
 		Az alkalmazás által feladatmegoldáskor támogatott szoftverfejlesztési módszerek a következők:
@@ -196,27 +227,24 @@
 					\item Kijelentkezéskor töröljük a tokent a \texttt{localStorage}-ból, ezután nem fogjuk tudni használni a szerver végpontjait.
 				\end{itemize}
 			
-			\subsection{Képernyők}
-			TODO (leírásuk, komponenseik)
-			
 			\subsection{Komponensek}
 				\subsubsection{Code Editor}
-				A Code Editor komponens valósítja meg az alkalmazásban használt kódszerkesztőt. A cél egy olyan kódszerkesztő létrehozása, amely nagyban megkönnyíti a különböző szoftverfejlesztési módszerek támogatását. Ezt használjuk fel a feladatok megoldásánál bármely módszer választása esetén, illetve a saját megoldások listázásánál is. A komponens a CodeMirror nevű kódszerkesztőre épül, néhány funkcióját átveszi, néhányat pedig testreszabja az alkalmazás igényeire. Lehetőséget nyújt az alkalmazás által támogatott programozási nyelvek használatára, a szerkesztő kezdeti tartalmának beállítására és jelenlegi tartalmának lekérésére. Kiegészítőket használ fel, amelyekkel például képes keresni, kikommentelni bizonyos sorokat és kiemelni a kijelöléssel egyező részeket a szövegben.
+					A Code Editor komponens valósítja meg az alkalmazásban használt kódszerkesztőt. A cél egy olyan kódszerkesztő létrehozása, amely nagyban megkönnyíti a különböző szoftverfejlesztési módszerek támogatását. Ezt használjuk fel a feladatok megoldásánál bármely módszer választása esetén, illetve a saját megoldások listázásánál is. A komponens a CodeMirror nevű kódszerkesztőre épül, néhány funkcióját átveszi, néhányat pedig testreszabja az alkalmazás igényeire. Lehetőséget nyújt az alkalmazás által támogatott programozási nyelvek használatára, a szerkesztő kezdeti tartalmának beállítására és jelenlegi tartalmának lekérésére. Kiegészítőket használ fel, amelyekkel például képes keresni, kikommentelni bizonyos sorokat és kiemelni a kijelöléssel egyező részeket a szövegben.
 				
-				Lehetőség van különböző szerkesztési módok beállítására, azok közötti váltásra:
-				\begin{itemize}
-					\item Normál mód: ez az alapértelmezett mód, ebben a módban tudja a felhasználó szerkeszteni a tartalmat.
-					\item Csak olvasható mód: a tartalom szerkesztése le van tiltva, csak annak kijelölése és másolása van engedélyezve ebben a módban. A kurzor villogásának és egyéb vizuális kódszerkesztési tulajdonságoknak a kikapcsolása segíti a felhasználót a mód megkülönböztetésében.
-					\item Inaktív mód: ebben a módban a kód szerkesztése és kijelölése is le van tiltva. A szerkesztő elhalványulása és tiltó jelzés megjelenítése jelzi a felhasználónak, hogy jelenleg nem használhatja a szerkesztőt.
-				\end{itemize}
+					Lehetőség van különböző szerkesztési módok beállítására, azok közötti váltásra:
+					\begin{itemize}
+						\item Normál mód: ez az alapértelmezett mód, ebben a módban tudja a felhasználó szerkeszteni a tartalmat.
+						\item Csak olvasható mód: a tartalom szerkesztése le van tiltva, csak annak kijelölése és másolása van engedélyezve ebben a módban. A kurzor villogásának és egyéb vizuális kódszerkesztési tulajdonságoknak a kikapcsolása segíti a felhasználót a mód megkülönböztetésében.
+						\item Inaktív mód: ebben a módban a kód szerkesztése és kijelölése is le van tiltva. A szerkesztő elhalványulása és tiltó jelzés megjelenítése jelzi a felhasználónak, hogy jelenleg nem használhatja a szerkesztőt.
+					\end{itemize}
 
-				A komponens lehetővé teszi a szerkesztőben történő változásokba való befolyást. Azt szeretnénk, hogy bármely változást teljesen meg tudjunk szakítani, illetve bármikor végre tudjunk hajtani változásokat egyszerűen programozható módon. Ezt a CodeMirror ehhez kapcsolódó eseményeire való feliratkozásokkal és azok megfelelő kezelésével tudjuk megtenni. Ezek segítségével minden változást megszakítunk, összegyűjtjük a megszakított változtatás későbbi végrehajtásához szükséges adatokat, és azokkal kiváltunk egy saját eseményt. Erre az eseményre feliratkozva egyszerűen, egységes módon meg tudjuk szakítani a szerkesztésre irányuló eseményeket, vagy tovább tudjuk engedni azokat végrehajtásra, vagy eltárolhatjuk a kapott adatokat a változás későbbi végrehajtásához. Amennyiben nem szakítjuk meg az eseményt, a változás végrehajtódik. A támogatott változások a következők:
-				\begin{itemize}
-					\item Kijelölés változás: a mutatóeszközökkel (például egérrel) és érintőképernyővel végzett kijelölés változások tartoznak ide. Ennek a változásnak a megszakítása nem támogatott az eredeti eseményben, ezért az általunk kiváltott eseményben láthatatlanul visszaállítjuk a kijelölést az előző állapotra. 
-					\item Tartalom változás: ide tartoznak a billentyűleütésekből következő tartalom változások, illetve a kivágás és beillesztés. Abban az esetben, ha egyszerre több kijelölés van a tartalom változás idejében, akkor az eredeti eseményben minden kijelölésben történő változásról külön eseményt kapunk. A saját eseményben ezeket összevonjuk, csak egy eseményt váltunk ki. 
-					\item Billentyűparancs: az olyan, billentyűzettel bevihető parancsok tartoznak ide, mint előre- és visszavonás, kódformázási és kurzor mozgatási parancsok. Billentyű leütésekor ellenőrizzük, hogy egy billentyűparancshoz kapcsolódó billentyűkombináció lett-e leütve, ekkor figyelembe vesszük a beépített, illetve az általunk hozzáadott kombinációkat is.
-				\end{itemize}
-				A CodeMirror az alváltozásokról is küld eseményeket, vagyis például a billentyűleütések utáni kijelölés változásokról, vagy a billentyűparancsok utáni tartalom változásokról. A komponensben ezeket összesítjük, a saját eseményben csak a kiváltó eseménnyel foglalkozunk a változások egységes, egyszerű kezelése érdekében.
+					A komponens lehetővé teszi a szerkesztőben történő változásokba való befolyást. Azt szeretnénk, hogy bármely változást teljesen meg tudjunk szakítani, illetve bármikor végre tudjunk hajtani változásokat egyszerűen programozható módon. Ezt a CodeMirror ehhez kapcsolódó eseményeire való feliratkozásokkal és azok megfelelő kezelésével tudjuk megtenni. Ezek segítségével minden változást megszakítunk, összegyűjtjük a megszakított változtatás későbbi végrehajtásához szükséges adatokat, és azokkal kiváltunk egy saját eseményt. Erre az eseményre feliratkozva egyszerűen, egységes módon meg tudjuk szakítani a szerkesztésre irányuló eseményeket, vagy tovább tudjuk engedni azokat végrehajtásra, vagy eltárolhatjuk a kapott adatokat a változás későbbi végrehajtásához. Amennyiben nem szakítjuk meg az eseményt, a változás végrehajtódik. A támogatott változások a következők:
+					\begin{itemize}
+						\item Kijelölés változás: a mutatóeszközökkel (például egérrel) és érintőképernyővel végzett kijelölés változások tartoznak ide. Ennek a változásnak a megszakítása nem támogatott az eredeti eseményben, ezért az általunk kiváltott eseményben láthatatlanul visszaállítjuk a kijelölést az előző állapotra. 
+						\item Tartalom változás: ide tartoznak a billentyűleütésekből következő tartalom változások, illetve a kivágás és beillesztés. Abban az esetben, ha egyszerre több kijelölés van a tartalom változás idejében, akkor az eredeti eseményben minden kijelölésben történő változásról külön eseményt kapunk. A saját eseményben ezeket összevonjuk, csak egy eseményt váltunk ki. 
+						\item Billentyűparancs: az olyan, billentyűzettel bevihető parancsok tartoznak ide, mint előre- és visszavonás, kódformázási és kurzor mozgatási parancsok. Billentyű leütésekor ellenőrizzük, hogy egy billentyűparancshoz kapcsolódó billentyűkombináció lett-e leütve, ekkor figyelembe vesszük a beépített, illetve az általunk hozzáadott kombinációkat is.
+					\end{itemize}
+					A CodeMirror az alváltozásokról is küld eseményeket, vagyis például a billentyűleütések utáni kijelölés változásokról, vagy a billentyűparancsok utáni tartalom változásokról. A komponensben ezeket összesítjük, a saját eseményben csak a kiváltó eseménnyel foglalkozunk a változások egységes, egyszerű kezelése érdekében.
 
 			TODO (leírásuk, működésük, hibalehetőségek)
 			
@@ -564,7 +592,56 @@
 				\end{itemize}
 			
 			\subsection{Manuális tesztek}
-			TODO (minden funkció lényegesebb kimeneteleire given-when-then leírás)
+				Manuális teszteléssel az alkalmazás felhasználói funkcióinak működését tesztelhetjük fekete doboz módszerrel, a felhasználói felületet használva. Ekkor a tesztek eredményének ellenőrzése a tesztelő feladata. Tesztkörnyezetnek a \url{https://methcodus-client-elte.herokuapp.com} címen elérhető éles változatot használtam Google Chrome böngészőben.
+
+				\subsubsection{Regisztráció}
+				Ha valamely regisztrációs adatot nem töltünk ki, akkor elküldéskor hibát kapunk.
+				Ha olyan felhasználónevet adunk meg, amellyel valaki már regisztrált, vagy a megadott jelszó megerősítés nem egyezik a jelszóval, hibaüzenetet kapunk.
+				Helyes adatok esetén átirányításra kerülünk a bejelentkezésre.
+
+				\subsubsection{Bejelentkezés}
+				Hiányzó adatok esetén elküldéskor hibaüzenetet kapunk.
+				Ha nem létező felhasználónevet, vagy nem megfelelő jelszót adtunk meg, egy hibaüzenet tájékoztat minket erről.
+				Amennyiben helyes adatokat adunk meg, átirányításra kerülünk a feladatok böngészésére.
+
+				\subsubsection{Kijelentkezés}
+				A kijelentkezés gombra kattintva át leszünk irányítva a bejelentkező felületre.
+
+				\subsubsection{Páros programozás felkérés elfogadása}
+				Ha kaptunk az elmúlt 5 percben felkérést páros programozásra, akkor a felkérés részletei megjelennek a menüsávon.
+				Ha egy felkérés több mint 5 perce lett elküldve, akkor nem jelenik meg felkérés a menüsávon.
+				Felkérésre kattintáskor betöltődik a feladatmegoldás oldala és csatlakozásra kerül a feladatmegoldás menetéhez.
+
+				\subsubsection{Feladatok böngészése}
+				Ha hozzáadunk egy feladatot, az ezen az oldalon megjelenik.
+				Egy adott feladat nevére kattintáskor megjelennek a feladat részletes adatai.
+				Ha nem választottuk ki a feladat indításához megadni szükséges adatokat, nem indul el a feladat, hibaüzenetet kapunk.
+				Amennyiben kiválasztottuk a szükséges adatokat és a feladat megoldása gombra kattintunk, betöltődik a feladatmegoldó felület.
+
+				\subsubsection{Feladat hozzáadása}
+				Ha nem töltünk ki minden adatot, hibaüzenet értesít minket erről.
+				Abban az esetben, ha a teszteseteink nem felelnek meg az előírt formátumnak, pontos hibaüzenetben értesít arról, hol vétettünk hibát.
+				Helyes tesztadatok megadása esetén létrehozásra kerül a feladat és át leszünk irányítva a feladatok böngészésére, ahol megjelenik a hozzáadott feladatunk.
+
+				\subsubsection{Feladat megoldása szoftverfejlesztési módszer nélkül}
+				Ha fordítási vagy szintaktikai hiba van a kódunkban tesztelésnél, arról hibaüzenet formájában értesülünk.
+				Ha valamely teszt átmegy, arról a felületen keresztül értesülünk.
+				Amennyiben minden teszt átmegy, aktívvá válik a beküldés gomb.
+
+				\subsubsection{Feladat megoldása tesztvezérelt fejlesztéssel}
+				Ha teszt szakaszban a megoldás kódszerkesztőjébe próbálunk írni, vagy fordítva, az nem hajtódik végre.
+				Abban az esetben, ha refaktor szakaszban változtatunk a kód működésén, a rendszer nem enged továbblépni.
+				Ha kód szakaszban az új teszteset kielégítése nélkül próbálunk továbblépni, azt a rendszer megakadályozza.
+
+				\subsubsection{Feladat megoldása páros programozással}
+				A felkérés küldése ablakban nem létező felhasználónév, vagy saját felhasználónevünk megadásakor hibaüzenetet kapunk.
+				Helyes felhasználónév megadásakor elküldésre kerül a felkérés.
+				Amint a felkért felhasználó csatlakozik, elindul a megoldás folyamata.
+				Ha módosítást végzek a kódszerkesztőben, az a másik felhasználónál is végrehajtásra kerül.
+
+				\subsubsection{Feladat megoldása ping pong módszerrel}
+				Ha valamelyik kódszerkesztőbe próbálunk írni, amikor a másik tagnál van az irányítás, a rendszer ezt nem engedi.
+				Ha az egyik tag kilép a menetből, a másik tag értesül róla és ezután a rendszer nem engedi folytatni a feladatmegoldást.
 		
 		\section{Továbbfejlesztési lehetőségek}
 			Az alkalmazásban rengeteg lehetőség van még továbbfejlesztési szempontból. Ezek közül a legfontosabbak:
