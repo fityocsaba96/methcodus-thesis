@@ -184,7 +184,7 @@
 					A WebSocket \cite{websocket} egy internetes kommunikációs protokoll, amely kétirányú kommunikációt valósít meg a kliens és a szerver között egyetlen TCP kapcsolaton keresztül. Segítségével nagymértékben csökkenthető a hálózati forgalom és a késleltetés a kétirányú kommunikációt szimuláló, HTTP polling alapú megoldásokhoz képest.
 
 			\subsection{Kód felépítése}
-			TODO (mappaszerkezet, rétegek)
+				A szerver alkalmazás forráskódja a benne szereplő entitások szerint van modularizálva, vagyis külön könyvtárban szerepelnek az ezekkel foglalkozó kódrészletek. Ilyen modulokat képeznek az adatbázis modelleknek megfelelő User, Exercise, illetve Solution modellek. Ezeken kívül külön modulban szerepelnek a páros programozás felkérésekkel foglalkozó WebSocket műveletek, illetve az authentikációhoz tartozók. Minden ilyen modulban található egy \texttt{controller} réteg. Ez a legfelső réteg, amely fogadja a HTTP végpontokról, illetve WebSocket üzeneteken keresztül érkező adatokat. Itt folyik általában az adatok validálása, illetve a válasz összeállítása. Az adatbázis műveletek nem itt találhatóak, azokat egy lentebbi réteg, az úgynevezett \texttt{service} réteg kezeli. Opcionálisan találhatóak még \texttt{dto} és \texttt{interface} fájlok. Az előbbiben a bejövő adatok típusleírásai, utóbbiban pedig egyéb típusdefiníciók találhatók.
 		
 		\section{Kliens architektúra}
 
@@ -234,7 +234,7 @@
 					Az Express \cite{express} egy nyílt forráskódú, minimalista keretrendszer szerveroldali Node.js alkalmazások építésére, amely a Node.js beépített HTTP moduljára épül. Nagyon rugalmasan, sokféleképpen használható, nem írja elő, hogy hogyan kell felépíteni, strukturálni a vele írt alkalmazásokat.
 			
 			\subsection{Kód felépítése}
-			TODO (mappaszerkezet, rétegek)
+				A kliens alkalmazás forráskódja komponens alapú megközelítésben íródott. Az oldalak komponensekből épülnek fel, és minden oldal maga is egy komponens. Egy komponensnek három része lehet: működés (TypeScript), tartalom (HTML), megjelenés (CSS). A szerverrel való kommunikáció leegyszerűsítése érdekében \texttt{service} osztályokat használunk. Ezekben közvetlen lehetőséget adunk a szerver HTTP végpontjainak és WebSocket üzeneteinek használatára, egyben definiáljuk ezekben a bemenet és kimenet formáját.
 
 		\section{A tesztelő rendszer működése}
 			Az alkalmazás leglényegesebb része a tesztelő rendszer. A felhasználók által megoldandó programozási feladatok megoldása közben, illetve azok beküldésekor nyújt támpontot számukra azáltal, hogy kiértékeli a megoldásukat és egységes formájú jelentést készít annak állapotáról. Akár tesztvezérelt fejlesztéssel oldja meg a felhasználó a feladatot, akár nem, ez a rendszer felel a megoldás teszteléséért. A tesztelő rendszer a szerveroldalon található, HTTP kapcsolaton keresztül folyik a kommunikáció. Megkapjuk a teszteléshez szükséges adatokat, elvégezzük a teszteket, utána pedig válaszolunk a teszteredményekkel.
