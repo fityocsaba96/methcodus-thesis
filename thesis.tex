@@ -106,7 +106,11 @@
 		\section{Tervezés}
 
 			\subsection{Használati esetek}
-			TODO (használati eset diagram)
+			\begin{figure}[H]
+				\centering
+				\includegraphics[scale=1]{use-case-diagram}
+				\caption{Az alkalmazás felhasználói esetei}
+			\end{figure}
 			
 			\subsection{Architektúra terv}
 				A specifikációban szereplő igényeinket kiválóan kielégíti egy webes alkalmazás, amelynek architektúrája 3 komponensből áll. Az architektúra tartalmaz egy adatbázist, egy kiszolgálót, amely a szerver alkalmazást működteti, illetve egy másik kiszolgálót, amely a kliens alkalmazásért felel. A szerver alkalmazás egy REST elvekre épített webes API, ami az adatbázis felhasználásával megvalósítja az alkalmazás szerveroldali felületét. A kliens alkalmazás egy SPA, ami HTTP kéréseken keresztül fog kommunikálni a szerver alkalmazással. A kliens alkalmazást alkotó statikus fájlok elérését egy külön kiszolgáló biztosítja. Ezek a komponensek egy-egy Docker konténerben vannak izolálva egymástól és a külvilágtól.
